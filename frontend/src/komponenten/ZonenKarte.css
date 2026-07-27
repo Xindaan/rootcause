@@ -1,0 +1,306 @@
+/* ZonenKarte — einzelne Pflanzenkarte */
+
+.schwellen-vorschlag {
+  margin: 8px 0 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #5a4100;
+  background: #fff7dc;
+  border: 1px solid #e8c878;
+  border-radius: 8px;
+  cursor: help;
+}
+
+.schwellen-vorschlag small {
+  margin-left: 6px;
+  color: #7a6b3d;
+  font-weight: 400;
+}
+
+.karte {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-top: 3px solid var(--farbe-gesund);
+  border-radius: var(--karte-radius);
+  padding: 20px 24px;
+  box-shadow: var(--karte-schatten);
+  transition: box-shadow 0.2s ease;
+}
+
+.karte:hover {
+  box-shadow: var(--karte-schatten-hover);
+}
+
+.karte-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.karte-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primaer);
+  margin: 0 0 6px;
+}
+
+.wert-gross {
+  font-size: 36px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.badge.automatik {
+  background: var(--farbe-gesund-bg);
+  color: var(--farbe-gesund);
+}
+
+.badge.monitoring {
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+}
+
+.badge.bewaesserung-aktiv {
+  background: var(--farbe-info);
+  color: white;
+  animation: pulsieren 2s ease-in-out infinite;
+}
+
+/* T-0125/T-0183: Offene Sensor-Warnungen pro Zone. Kritisch (Sensor-
+   Ausfall, eingefroren, Batterie kritisch) als rote Badge, Hinweis
+   (Batterie niedrig) als gelbe. */
+.badge.warnung-kritisch {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+}
+
+.badge.warnung-hinweis {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+
+/* T-0245: AquaBloom-Pumpen-Pill. Eigene Farbe (--quelle-aquabloom) aus
+   design-tokens.css. Adoption-Lift aus V3 (zonen-karte-v3.css:120). */
+.badge.aquabloom-pill {
+  background: color-mix(in oklab, var(--quelle-aquabloom) 12%, var(--bg-karte));
+  color: var(--quelle-aquabloom);
+  border: 1px solid color-mix(in oklab, var(--quelle-aquabloom) 30%, transparent);
+}
+
+/* T-0228 Stufe 2: Wartungs-Badge im Header (Klick = beenden) +
+   Start-Link im Detail-Footer (Klick = starten). */
+.badge.wartung-aktiv {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+  border: 1px solid color-mix(in oklab, var(--farbe-warnung) 40%, transparent);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+}
+.badge.wartung-aktiv:hover {
+  background: color-mix(in oklab, var(--farbe-warnung) 20%, var(--bg-karte));
+}
+
+.wartung-start-zelle {
+  align-self: center;
+}
+.wartung-start-link {
+  background: transparent;
+  border: 1px dashed var(--rahmen);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  cursor: pointer;
+}
+.wartung-start-link:hover {
+  color: var(--farbe-warnung-text);
+  border-color: var(--farbe-warnung);
+}
+
+@keyframes pulsieren {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Details */
+.karte-details {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.wert {
+  font-size: 15px;
+  color: var(--text-sekundaer);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ML-Kurzinfo */
+.ml-kurzinfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: rgba(124, 92, 191, 0.05);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--chart-ml);
+}
+
+.ml-kurzinfo .label {
+  font-size: 11px;
+  color: var(--chart-ml);
+  margin-right: 4px;
+}
+
+.ml-wert {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.ml-wert small {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-gedaempft);
+}
+
+.ml-wert.unter-schwelle {
+  color: var(--farbe-gefahr);
+}
+
+/* Prognose */
+.prognose-box {
+  background: var(--farbe-warnung-bg);
+  border: 1px solid rgba(196, 127, 23, 0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--farbe-warnung-text);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.prognose-box.ok {
+  background: var(--farbe-gesund-bg);
+  border-color: rgba(45, 138, 78, 0.2);
+  color: var(--farbe-gesund);
+}
+
+.prognose-box small {
+  color: var(--text-gedaempft);
+}
+
+/* Zeitraum-Toggle */
+.zeitraum-toggle {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.zeitraum-btn {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  background: none;
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 6px;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.zeitraum-btn:hover {
+  border-color: var(--rahmen);
+  color: var(--text-sekundaer);
+}
+
+.zeitraum-btn.aktiv {
+  background: var(--bg-subtil);
+  border-color: var(--rahmen);
+  color: var(--text-primaer);
+}
+
+/* Chart */
+.chart-container {
+  margin-top: 8px;
+}
+
+/* T-0196: FYTA-Pflanzen-Status (KPI-Block unter Chart).
+   Kompakter Block mit Sensor-Werten und Sollwert-Vergleich.
+   Eine Zeile pro Achse (Licht, Temperatur). */
+.fyta-status {
+  margin-top: 12px;
+  padding: 8px 10px;
+  background: var(--bg-subtil, rgba(0, 0, 0, 0.03));
+  border-radius: 8px;
+  border: 1px solid var(--rahmen, rgba(0, 0, 0, 0.08));
+  font-size: 12px;
+}
+
+.fyta-status-titel {
+  font-weight: 600;
+  color: var(--text-sekundaer);
+  margin-bottom: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.fyta-status-zeile {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+  padding: 2px 0;
+}
+
+.fyta-status-label {
+  color: var(--text-sekundaer);
+}
+
+.fyta-status-wert {
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.fyta-status-opt {
+  color: var(--text-gedaempft);
+  font-size: 11px;
+}
+
+.fyta-status-bewertung {
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}

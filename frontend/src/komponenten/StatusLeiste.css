@@ -1,0 +1,54 @@
+/* StatusLeiste — aggregierte Zonen-Gesundheit */
+
+.status-leiste {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 12px 16px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 10px;
+  box-shadow: var(--karte-schatten);
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.status-chip:hover {
+  opacity: 0.8;
+}
+
+.status-chip.ok {
+  background: var(--farbe-gesund-bg);
+  color: var(--farbe-gesund);
+}
+
+.status-chip.giessen-bald {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+
+.status-chip.nass {
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+}
+
+.status-chip.kritisch {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+}
+
+.status-chip.unbekannt {
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+}

@@ -1,0 +1,56 @@
+/* WetterKarte */
+
+.wetter-karte {
+  border-top-color: var(--farbe-info) !important;
+}
+
+.wetter-karte h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primaer);
+  margin: 0 0 14px;
+}
+
+/* T-0241: Banner-Slot fuer aktive Frost/Hitze/Starkregen-Warnungen.
+   Sitzt direkt unter der Ueberschrift, vor den karte-details. */
+.wetter-ereignisse {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.wetter-ereignis {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  border-left: 4px solid;
+}
+
+.wetter-ereignis--frost {
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+  border-left-color: var(--farbe-info);
+}
+
+.wetter-ereignis--hitze,
+.wetter-ereignis--starkregen {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+  border-left-color: var(--farbe-warnung);
+}
+
+.wetter-ereignis-icon {
+  font-size: 16px;
+}
+
+.wetter-ereignis-label {
+  font-weight: 600;
+}
+
+.wetter-ereignis-details {
+  opacity: 0.85;
+}

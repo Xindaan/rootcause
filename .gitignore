@@ -1,0 +1,67 @@
+# Credentials
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Datenbank
+daten/
+*.db
+
+# Node
+node_modules/
+frontend/dist/
+backend/static/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+
+# Claude
+.claude/
+
+# FYTA Exports (persoenliche Sensordaten)
+exports/
+
+# Ad-hoc Cycle-and-Soak-Skripts + Logs (Rieger-Aussaat, Strapazierrasen, ...)
+# Pattern-basiert, faengt auch Tag-3, Tag-4, neue Flaechen automatisch.
+scripts/strapazierrasen_*.py
+scripts/rieger_*.py
+scripts/haengematte_*.py
+scripts/watchdog_*.py
+scripts/badseite*.py
+scripts/nordseite*.py
+scripts/schuppen*.py
+docs/strapazierrasen_*.log
+docs/rieger_*.log
+docs/haengematte_*.log
+docs/watchdog_*.log
+docs/watchdog_*.stdout.log
+docs/badseite*.log
+docs/nordseite*.log
+docs/schuppen*.log
+
+# Design-Handoff: grosse Screenshots der Export-Snapshots nicht tracken
+# (reproduzierbar aus dem claude.ai/design-Projekt; Text/Code/Specs bleiben getrackt).
+docs/design/_exports/**/*.png
+
+# Generierte Analyse-Dashboards (gross, regenerierbar via baue_dashboard.py).
+# Quellen (Skripte, BEFUNDE.md, findings.json) bleiben getrackt.
+docs/analyse/*.html
+
+# UI-Audit-Screenshots + DOM-Rohdaten (gross, reproduzierbar via
+# screenshots.mjs im jeweiligen Audit-Ordner; Doc + Befunde bleiben getrackt).
+docs/ui-audit-2026-07/**/*.png
+docs/ui-audit-2026-07/**/audit.json
+scripts/nordseite_wecron.sh

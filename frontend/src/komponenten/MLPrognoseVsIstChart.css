@@ -1,0 +1,99 @@
+/* MLPrognoseVsIstChart — collapsed Toggle + ausgeklappter Bereich. */
+
+.ml-prognose-chart-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  background: var(--bg-karte-sub, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+  border-radius: 0.35rem;
+  font-size: 0.78rem;
+  color: var(--farbe-sekundaer, #555);
+  cursor: pointer;
+  transition: background 120ms;
+}
+
+.ml-prognose-chart-toggle:hover {
+  background: var(--bg-karte-hover, rgba(0, 0, 0, 0.06));
+  color: var(--text-stark, #222);
+}
+
+.ml-prognose-chart {
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  background: var(--bg-karte-sub, rgba(0, 0, 0, 0.02));
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+  border-radius: 0.5rem;
+}
+
+.ml-prognose-chart-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.ml-prognose-chart-header .titel {
+  font-weight: 600;
+  font-size: 0.85rem;
+  flex: 1;
+}
+
+.ml-prognose-chart-header .horizont-tabs {
+  display: inline-flex;
+  gap: 0.15rem;
+}
+
+.ml-prognose-chart-header .horizont-tabs button {
+  padding: 0.15rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.15));
+  border-radius: 0.25rem;
+  font-size: 0.72rem;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  cursor: pointer;
+  color: var(--farbe-sekundaer, #666);
+}
+
+.ml-prognose-chart-header .horizont-tabs button.aktiv {
+  background: var(--chart-ml, #7c5cbf);
+  color: #fff;
+  border-color: var(--chart-ml, #7c5cbf);
+}
+
+.ml-prognose-chart-header .schliessen {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--farbe-sekundaer, #666);
+  cursor: pointer;
+  padding: 0.1rem 0.3rem;
+}
+
+.ml-prognose-chart .meta {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  color: var(--farbe-sekundaer, #666);
+  margin-bottom: 0.3rem;
+}
+
+.ml-prognose-chart .legende-detail {
+  margin-top: 0.3rem;
+  font-size: 0.7rem;
+  color: var(--farbe-sekundaer, #666);
+  line-height: 1.4;
+}
+
+.ml-prognose-chart .hinweis {
+  padding: 0.6rem;
+  font-size: 0.78rem;
+  color: var(--farbe-sekundaer, #666);
+  text-align: center;
+}
+
+.ml-prognose-chart .hinweis.fehler {
+  color: var(--farbe-gefahr, #c33);
+}

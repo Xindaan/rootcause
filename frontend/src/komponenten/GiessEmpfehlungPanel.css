@@ -1,0 +1,262 @@
+/* GiessEmpfehlungPanel — Dry-Run-Empfehlung pro Zone (T-0066) */
+
+.gep-container {
+  margin: 0.75rem 0;
+  padding: 0.55rem 0.75rem 0.6rem;
+  border-left: 4px solid var(--rahmen);
+  background: var(--bg-karte-hover);
+  border-radius: 6px;
+}
+
+.gep-container.gep-aktiv {
+  border-left-color: var(--farbe-info);
+  background: var(--farbe-info-bg);
+}
+
+/* Hypothetisch: Dauer wird angezeigt, aber blockiert (Pause/Zeit/Budget/Regen).
+   Gedämpfte Optik, damit User nicht glaubt das laufe jetzt. */
+.gep-container.gep-hypothetisch {
+  border-left-color: var(--farbe-warnung);
+  background: var(--farbe-warnung-bg);
+}
+
+.gep-hypothetisch .gep-primaer .gep-dauer,
+.gep-hypothetisch .gep-primaer .gep-liter {
+  color: var(--text-sekundaer);
+}
+
+.gep-blocker-hinweis {
+  font-weight: 600;
+  color: var(--farbe-warnung-text);
+  margin-right: 0.25rem;
+}
+
+.gep-container.gep-inaktiv {
+  border-left-color: var(--farbe-gesund);
+}
+
+/* T-0103: wohlfuehl_grenze — sanfter Hinweis (kein Notfall, aber Empfehlung).
+   Blau-Akzent (analog gep-aktiv), aber dezenter ohne Hintergrund-Fuellung. */
+.gep-container.gep-wohlfuehl {
+  border-left-color: var(--farbe-info);
+  background: var(--bg-karte-hover);
+}
+
+/* T-0183: Monitoring-Zonen (modus=monitoring). Keine Auto-Bewaesserung,
+   aber bei Schwellen-Unterschreitung soll User sichtbar gewarnt werden.
+   Akut = rot, praeventiv = gelb. Anders als gep-hypothetisch, weil
+   nicht "blockiert" sondern "bewusst beobachten". */
+.gep-container.gep-monitoring-akut {
+  border-left-color: var(--farbe-gefahr);
+  background: var(--farbe-gefahr-bg);
+}
+
+.gep-container.gep-monitoring-praev {
+  border-left-color: var(--farbe-warnung);
+  background: var(--farbe-warnung-bg);
+}
+
+/* T-0103: Strategie-Label im Kopf (wenn != Default-Korridor). */
+.gep-strategie {
+  font-size: 0.75rem;
+  color: var(--text-sekundaer);
+  margin-left: 0.5rem;
+  white-space: nowrap;
+}
+
+.gep-container.gep-laden,
+.gep-container.gep-fehler {
+  border-left-color: var(--rahmen-subtil);
+  background: var(--bg-subtil);
+}
+
+.gep-kopf {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.gep-titel {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-primaer);
+}
+
+.gep-blocker-icon {
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--text-sekundaer);
+}
+
+.gep-fehlertext {
+  font-size: 0.8rem;
+  color: var(--farbe-gefahr);
+}
+
+.gep-inhalt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.gep-zeile {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.gep-primaer .gep-dauer {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primaer);
+  font-variant-numeric: tabular-nums;
+}
+
+.gep-primaer .gep-liter {
+  font-size: 1rem;
+  color: var(--text-sekundaer);
+  font-variant-numeric: tabular-nums;
+}
+
+.gep-primaer .gep-quelle {
+  margin-left: auto;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  color: var(--text-gedaempft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gep-grund {
+  font-size: 0.88rem;
+  color: var(--text-primaer);
+  line-height: 1.35;
+}
+
+/* T-0075: Kausal-Erklaerung — die eigentliche Aussage des Panels */
+.gep-erklaerung {
+  font-size: 0.92rem;
+  color: var(--text-primaer);
+  line-height: 1.5;
+  padding: 0.2rem 0;
+}
+
+.gep-quelle-hinweis {
+  color: var(--text-gedaempft);
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+/* Type-Icon im Titel */
+.gep-typ-icon {
+  font-size: 0.95rem;
+  margin-right: 0.3rem;
+  line-height: 1;
+}
+
+/* Mini-Marker-Reihe: Welkepunkt | Optimum | Sensor | FK */
+.gep-marker-reihe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+}
+
+.gep-marker {
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  background: var(--bg-subtil);
+  color: var(--text-sekundaer);
+  font-variant-numeric: tabular-nums;
+  border: 1px solid var(--rahmen-subtil);
+}
+
+.gep-marker-welke {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+  border-color: var(--farbe-gefahr-bg);
+}
+
+.gep-marker-wohl {
+  background: var(--farbe-optimum-bg);
+  color: var(--farbe-optimum);
+  border-color: var(--farbe-optimum-bg);
+}
+
+.gep-marker-sensor {
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+  border-color: var(--farbe-info-bg);
+  font-weight: 600;
+}
+
+.gep-marker-fk {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+  border-color: var(--farbe-warnung-bg);
+}
+
+/* T-0088: erwarteter Sensor-Wert nach der Empfehlung. Orange-Akzent
+   abgegrenzt von gep-marker-sensor (blau = jetzt). */
+.gep-marker-erwartet {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+  border-style: dashed;
+}
+
+/* T-0086: Mehrfach-Takt-Hinweis als kleine zweite Zeile unter der
+   Hauptdose. Akzent gleich wie Hauptdose (Farbe folgt aus
+   gep-aktiv/gep-hypothetisch), aber kleinere Schrift. */
+.gep-folge-dose {
+  font-size: 0.85rem;
+  color: var(--text-sekundaer);
+  margin-top: 0.2rem;
+}
+
+.gep-folge-dose::before {
+  /* Visueller Anker fuer "naechster Takt" */
+  content: "↻ ";
+  color: var(--farbe-info);
+  font-weight: 600;
+}
+
+.gep-sekundaer {
+  font-size: 0.82rem;
+  color: var(--text-sekundaer);
+}
+
+.gep-kleinschrift {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+}
+
+.gep-ampel {
+  margin-left: auto;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gep-ampel-gruen { background: var(--farbe-gesund-bg); color: var(--farbe-gesund); }
+.gep-ampel-gelb  { background: var(--farbe-warnung-bg); color: var(--farbe-warnung-text); }
+.gep-ampel-rot   { background: var(--farbe-gefahr-bg); color: var(--farbe-gefahr); }
+
+/* T-0120: Banner bei laufender Bewaesserung */
+.gep-laufend-banner {
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}

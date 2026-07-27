@@ -1,0 +1,46 @@
+[project]
+name = "bewaesserung"
+version = "0.1.0"
+description = "Automatische Gartenbewaesserung via Gardena Smart System API"
+requires-python = ">=3.11"
+dependencies = [
+    "py-smart-gardena>=0.7",
+    "websockets>=13,<14",
+    "pydantic>=2.0",
+    "fastapi>=0.100",
+    "uvicorn[standard]",
+    "httpx",
+    "pyyaml",
+    "aiosqlite",
+    "structlog",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+ml = [
+    "pandas>=2.0",
+    "scikit-learn>=1.4",
+    "lightgbm>=4.0",
+]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+]
+
+[project.scripts]
+bewaesserung = "bewaesserung.main:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

@@ -1,0 +1,188 @@
+/* DetailsDrawer — einfaches rechts-side-panel */
+
+.dd-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 900;
+  animation: dd-overlay-in 0.15s ease-out;
+}
+
+@keyframes dd-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.dd-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(420px, 92vw);
+  background: var(--bg-karte);
+  border-left: 1px solid var(--rahmen);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  z-index: 901;
+  animation: dd-panel-in 0.2s ease-out;
+}
+
+@keyframes dd-panel-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.dd-kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rahmen);
+}
+
+.dd-kopf h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--text-primaer);
+}
+
+.dd-close {
+  background: none;
+  border: 0;
+  color: var(--text-gedaempft);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.dd-close:hover { color: var(--text-primaer); }
+
+.dd-liste {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0 0 1.2rem;
+  font-size: 0.88rem;
+}
+
+.dd-liste dt {
+  color: var(--text-sekundaer);
+  font-weight: 500;
+}
+
+.dd-liste dd {
+  margin: 0;
+  color: var(--text-primaer);
+  font-variant-numeric: tabular-nums;
+}
+
+/* T-0184: Tabs + Inhalte (Sensor / ML / Wetter). */
+.dd-tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rahmen);
+}
+
+.dd-tab {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0.4rem 0.7rem;
+  color: var(--text-sekundaer);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.dd-tab:hover { color: var(--text-primaer); }
+
+.dd-tab.aktiv {
+  color: var(--farbe-info);
+  border-bottom-color: var(--farbe-info);
+}
+
+.dd-tab-inhalt {
+  min-height: 220px;
+  padding-top: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--text-primaer);
+}
+
+.dd-hinweis {
+  color: var(--text-sekundaer);
+  font-style: italic;
+  margin: 1rem 0;
+}
+
+.dd-hinweis-klein {
+  color: var(--text-gedaempft);
+  font-size: 0.75rem;
+  margin: 0.8rem 0 0;
+}
+
+.dd-fehler {
+  color: var(--farbe-gefahr);
+  background: var(--farbe-gefahr-bg);
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  margin: 0.4rem 0;
+}
+
+.dd-ml-zeile {
+  display: flex;
+  gap: 0.8rem;
+  align-items: baseline;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+
+.dd-ml-zeile:last-of-type { border-bottom: 0; }
+
+.dd-ml-horizont {
+  color: var(--text-sekundaer);
+  font-weight: 600;
+  min-width: 3rem;
+}
+
+.dd-ml-wert {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.dd-ml-band {
+  color: var(--text-gedaempft);
+  font-size: 0.78rem;
+}
+
+.dd-wetter-kpi {
+  display: flex;
+  gap: 1rem;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.dd-wetter-kpi > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  padding: 0.4rem 0.5rem;
+  background: var(--bg-subtil);
+  border-radius: 6px;
+}
+
+.dd-wetter-label {
+  color: var(--text-sekundaer);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.dd-wetter-wert {
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  margin-top: 0.1rem;
+}

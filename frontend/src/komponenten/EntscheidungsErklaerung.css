@@ -1,0 +1,133 @@
+/* EntscheidungsErklaerung — kompakter Status + Drawer. */
+
+.entscheidungs-erklaerung {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.ee-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-sekundaer);
+  text-align: left;
+  transition: background 0.15s ease;
+  font: inherit;
+}
+
+.ee-status:hover {
+  background: var(--bg-karte-hover);
+}
+
+.entscheidungs-erklaerung.giess .ee-icon {
+  color: var(--farbe-gesund);
+}
+
+.entscheidungs-erklaerung.kein-giess .ee-icon {
+  color: var(--text-gedaempft);
+}
+
+.ee-icon {
+  font-weight: 700;
+  width: 14px;
+  text-align: center;
+}
+
+.ee-label {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.ee-zeit {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-gedaempft);
+}
+
+/* T-0397 (F6): Scope-Chip in der eingeklappten Zeile -- dezent, damit klar
+   ist ob "Feuchte ausreichend" die Kanal-Aggregat- oder Einzel-Sensor-
+   Entscheidung ist. */
+.ee-scope {
+  font-size: 10.5px;
+  color: var(--text-gedaempft);
+  border: 1px solid var(--rahmen-schwach, rgba(0,0,0,0.12));
+  border-radius: 999px;
+  padding: 1px 7px;
+  white-space: nowrap;
+}
+
+.ee-pfeil {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  transition: transform 0.2s ease;
+}
+
+.ee-pfeil.offen {
+  transform: rotate(180deg);
+}
+
+.ee-liste {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 8px;
+  background: var(--bg-karte);
+  overflow: hidden;
+}
+
+.ee-liste li {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+
+.ee-liste li:last-child {
+  border-bottom: none;
+}
+
+.ee-liste li.ja .ee-icon {
+  color: var(--farbe-gesund);
+}
+
+.ee-liste li.nein .ee-icon {
+  color: var(--text-gedaempft);
+}
+
+.ee-zeile-kopf {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ee-zeile-label {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.ee-zeile-scope {
+  font-size: 11px;
+  padding: 1px 7px;
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+  border-radius: 10px;
+}
+
+.ee-zeile-zeit {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-gedaempft);
+}
+
+.ee-zeile-grund {
+  margin-top: 4px;
+  margin-left: 22px;
+  font-size: 12px;
+  color: var(--text-sekundaer);
+}

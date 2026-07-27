@@ -1,0 +1,204 @@
+/* ManuellesGiessen — kompakter Button + Dauer-Auswahl */
+
+.giessen-container {
+  margin-top: 8px;
+}
+
+.giessen-btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--farbe-info);
+  background: var(--farbe-info-bg);
+  border: none;
+  border-radius: 8px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.giessen-btn:hover {
+  background: #d4e5fa;
+}
+
+.giessen-auswahl {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  /* T-0262-Folge (2026-05-26): bei schmalen Karten (V3 ~360 px) lief
+     die Live-Zeile mit Preset-Buttons + freier Eingabe ueber den
+     Karten-Rand. Wrap erlaubt Umbruch in eine zweite Zeile. */
+  flex-wrap: wrap;
+  row-gap: 4px;
+}
+
+.giessen-dauer {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--farbe-info);
+  background: var(--farbe-info-bg);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.giessen-dauer:hover {
+  background: #d4e5fa;
+}
+
+.giessen-dauer:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.giessen-abbruch {
+  font-size: 12px;
+  color: var(--text-gedaempft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+}
+
+.giessen-ok {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--farbe-gesund);
+}
+
+.giessen-fehler {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--farbe-gefahr);
+}
+
+/* T-0110: Live-Modus visuell abgegrenzt vom Logging-Modus. */
+
+.giessen-container {
+  display: flex;
+  gap: 6px;
+}
+
+.giessen-log-btn {
+  /* unveraendert (info-blau) */
+}
+
+.giessen-live-btn {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+
+.giessen-live-btn:hover {
+  background: #fde6c8;
+}
+
+.giessen-auswahl-live {
+  background: var(--farbe-warnung-bg);
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.giessen-dauer-live {
+  background: white;
+  color: var(--farbe-warnung-text);
+}
+
+.giessen-dauer-live:hover {
+  background: #fff5e8;
+}
+
+.giessen-stop {
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  background: var(--farbe-gefahr);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.giessen-stop:hover {
+  background: #b91c1c;
+}
+
+.giessen-stop:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.giessen-label {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  font-weight: 600;
+}
+
+/* T-0262: freie Dauer-Eingabe im Live-Modus. */
+.giessen-trenner {
+  color: var(--text-gedaempft);
+  margin: 0 2px;
+}
+
+/* T-0262-Folge (2026-05-26): Sub-Gruppen damit Presets und freie
+   Eingabe als Bloecke umbrechen statt einzeln. */
+.giessen-live-presets,
+.giessen-live-frei {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.giessen-dauer-input {
+  width: 52px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 6px;
+  border: 1px solid var(--rahmen);
+  border-radius: 6px;
+  background: white;
+  color: var(--text-primaer);
+  text-align: right;
+  -moz-appearance: textfield;
+}
+
+.giessen-dauer-input::-webkit-outer-spin-button,
+.giessen-dauer-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.giessen-dauer-input:focus {
+  outline: 2px solid var(--farbe-akzent, #3c6e71);
+  outline-offset: 1px;
+  border-color: var(--farbe-akzent, #3c6e71);
+}
+
+.giessen-dauer-input:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+/* T-0279: Empfehlung-1-Klick-Übernehmen-Banner. Hebt die empfohlene Dauer
+   visuell ab und gibt den User-Wunsch "ein Klick statt eintippen". */
+.giessen-empf-uebernehmen {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-basis: 100%;
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  background: var(--farbe-info-bg);
+  border-radius: 6px;
+}
+.giessen-dauer-uebernehmen {
+  background: var(--farbe-info);
+  color: #fff;
+}
+.giessen-dauer-uebernehmen:hover {
+  background: var(--farbe-info);
+  filter: brightness(0.95);
+}

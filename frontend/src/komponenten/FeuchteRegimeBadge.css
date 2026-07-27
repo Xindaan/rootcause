@@ -1,0 +1,29 @@
+/* FeuchteRegimeBadge — T-0137. */
+
+.frb-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  margin: 0.35rem 0 0;
+  padding: 0.15rem 0.5rem;
+  background: var(--farbe-info-bg);
+  border-left: 3px solid var(--farbe-info);
+  border-radius: 4px;
+  font-size: 0.78rem;
+  color: var(--text-primaer);
+  cursor: help;
+}
+
+.frb-label {
+  font-weight: 600;
+  color: var(--farbe-info);
+}
+
+.frb-name {
+  font-weight: 500;
+}
+
+.frb-grund {
+  color: var(--text-sekundaer);
+  font-style: italic;
+}

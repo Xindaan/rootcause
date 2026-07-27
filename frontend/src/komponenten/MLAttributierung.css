@@ -1,0 +1,118 @@
+/* MLAttributierung — Toggle + Top-5 Feature-Balken pro Horizont. */
+
+.ml-attr {
+  margin-top: 8px;
+  border-top: 1px solid var(--rahmen-subtil);
+  padding-top: 6px;
+}
+
+.ml-attr-toggle {
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  cursor: pointer;
+  padding: 2px 0;
+}
+
+.ml-attr-toggle:hover {
+  color: var(--text-primaer);
+}
+
+.ml-attr-panel {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: var(--bg-subtil);
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.ml-attr-status,
+.ml-attr-fehler {
+  padding: 4px 0;
+  color: var(--text-gedaempft);
+}
+
+.ml-attr-fehler {
+  color: var(--farbe-gefahr);
+}
+
+.ml-attr-horizont + .ml-attr-horizont {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--rahmen-subtil);
+}
+
+.ml-attr-kopf {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-sekundaer);
+  margin-bottom: 4px;
+  letter-spacing: 0.2px;
+}
+
+.ml-attr-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ml-attr-zeile {
+  display: grid;
+  grid-template-columns: 110px 1fr 100px;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.ml-attr-name {
+  color: var(--text-sekundaer);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ml-attr-balken-wrap {
+  position: relative;
+  height: 8px;
+  background: var(--bg-karte);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ml-attr-balken {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.15s ease;
+}
+
+.ml-attr-balken.positiv {
+  background: var(--farbe-info, #3c6e71);
+}
+
+.ml-attr-balken.negativ {
+  background: var(--farbe-warnung, #d98e04);
+}
+
+.ml-attr-wert {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.ml-attr-beitrag {
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.ml-attr-featurewert {
+  color: var(--text-gedaempft);
+  font-size: 10px;
+}

@@ -1,0 +1,36 @@
+/* MLStatusBadge */
+
+.ml-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 10px;
+}
+
+.ml-badge.aktiv {
+  background: var(--farbe-gesund-bg);
+  color: var(--farbe-gesund-text); /* T-0397 (F17): AA-Kontrast auf Tint */
+}
+
+.ml-badge.inaktiv {
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+}
+
+.ml-punkt {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.ml-badge.aktiv .ml-punkt {
+  background: var(--farbe-gesund);
+}
+
+.ml-badge.inaktiv .ml-punkt {
+  background: var(--text-gedaempft);
+}

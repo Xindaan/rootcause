@@ -1,0 +1,184 @@
+/* HistorieTab — Filter-Leiste + Tabellen-Ansicht. */
+
+.historie-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.hist-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: flex-end;
+  padding: 12px 16px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  box-shadow: var(--karte-schatten);
+}
+
+.hist-filter-gruppe {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hist-filter-aktionen {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.hist-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+}
+
+.hist-preset-leiste {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--bg-subtil);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.hist-preset-btn {
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.hist-preset-btn:hover {
+  color: var(--text-primaer);
+}
+
+.hist-preset-btn.aktiv {
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.hist-select {
+  font: inherit;
+  font-size: 13px;
+  padding: 5px 8px;
+  border: 1px solid var(--rahmen);
+  border-radius: 6px;
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+  min-width: 140px;
+}
+
+.hist-csv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: var(--farbe-akzent, #3c6e71);
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.hist-csv-btn:hover {
+  opacity: 0.9;
+}
+
+.hist-status-zeile {
+  font-size: 12px;
+  color: var(--text-gedaempft);
+  padding: 0 4px;
+}
+
+.hist-fehler {
+  color: var(--farbe-gefahr);
+  font-weight: 600;
+}
+
+.hist-tabelle-wrap {
+  overflow-x: auto;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  box-shadow: var(--karte-schatten);
+}
+
+.hist-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.hist-tabelle thead {
+  background: var(--bg-subtil);
+}
+
+.hist-tabelle th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+  border-bottom: 1px solid var(--rahmen);
+}
+
+.hist-tabelle td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--rahmen-subtil);
+  vertical-align: top;
+  font-variant-numeric: tabular-nums;
+}
+
+.hist-tabelle tbody tr:hover {
+  background: var(--bg-subtil);
+}
+
+.hist-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.hist-pill.giessen {
+  background: #e0f4e8;
+  color: #14613a;
+}
+
+.hist-pill.nein {
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+}
+
+.hist-begruendung {
+  max-width: 420px;
+  color: var(--text-sekundaer);
+  font-size: 12px;
+}
+
+.hist-leer {
+  text-align: center;
+  padding: 24px 12px;
+  color: var(--text-gedaempft);
+  font-style: italic;
+}

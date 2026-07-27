@@ -1,0 +1,201 @@
+/* SchwellenRange — konsolidiert 2026-04-23 */
+
+.schwellen-range {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.55rem 0.25rem 0.4rem;
+  margin-top: 0.4rem;
+  border-top: 1px solid var(--rahmen-subtil);
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+
+.sr-track-wrap {
+  position: relative;
+  padding: 0.6rem 0.5rem 1.7rem;
+}
+
+.sr-track {
+  position: relative;
+  height: 16px;
+  background: var(--bg-subtil);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 8px;
+}
+
+.sr-schicht {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+/* Haupt-Schicht: wenn Optimum vorhanden -> Optimum prominent, sonst Schwelle. */
+.sr-optimum-fill {
+  background: var(--farbe-optimum);
+  opacity: 0.3;
+  border: 1px solid var(--farbe-optimum);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.sr-user-fill {
+  background: var(--farbe-gesund);
+  opacity: 0.35;
+  border: 1px solid var(--farbe-gesund);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+/* Overlay: Meine Schwelle als gestrichelter Rahmen -- nur wenn sie
+   signifikant vom Optimum abweicht (sonst optisches Rauschen). */
+.sr-user-outline {
+  top: -4px;
+  bottom: -4px;
+  border: 1.5px dashed var(--farbe-gesund);
+  border-radius: 10px;
+  background: transparent;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.sr-ist {
+  position: absolute;
+  top: -9px;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.sr-ist-linie {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  bottom: 0;
+  width: 2px;
+  background: var(--text-primaer);
+  transform: translateX(-50%);
+}
+
+.sr-ist-kreis {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--text-primaer);
+  background: var(--bg-karte);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.sr-achse {
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.2rem;
+  height: 0.9rem;
+}
+
+.sr-tick {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: var(--text-gedaempft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.sr-legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  font-size: 0.78rem;
+  color: var(--text-sekundaer);
+}
+
+.sr-kachel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sr-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.sr-swatch-optimum-fill {
+  background: var(--farbe-optimum);
+  opacity: 0.3;
+  border: 1px solid var(--farbe-optimum);
+}
+
+.sr-swatch-user-fill {
+  background: var(--farbe-gesund);
+  opacity: 0.35;
+  border: 1px solid var(--farbe-gesund);
+}
+
+.sr-swatch-user-outline {
+  border: 1.5px dashed var(--farbe-gesund);
+  background: transparent;
+}
+
+.sr-kachel-wert {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primaer);
+  margin-left: 0.1rem;
+}
+
+/* Sanity-Hinweis: nur wenn Schwelle signifikant abweicht. Gelb = Hinweis,
+   rot = Warnung (Schwelle liegt ausserhalb Pflanzen-Optimum). */
+.sr-sanity {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.sr-sanity-hinweis {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+  border-left: 3px solid var(--farbe-warnung);
+}
+
+.sr-sanity-warnung {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+  border-left: 3px solid var(--farbe-gefahr);
+}
+
+.sr-sanity-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  /* Background per Schweregrad-Selektor unten setzen.
+     `background: currentColor` mit `color: var(--bg-karte)` waere ein
+     Anti-Pattern (computed color faerbt Background = bg-karte → Icon
+     unsichtbar). Siehe codex_learning_log 2026-04-24. */
+  color: var(--bg-karte);
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex: none;
+  margin-top: 0.05rem;
+}
+
+.sr-sanity-hinweis .sr-sanity-icon { background: var(--farbe-warnung); }
+.sr-sanity-warnung .sr-sanity-icon { background: var(--farbe-gefahr); }
+
+.sr-sanity-text {
+  flex: 1;
+  color: var(--text-primaer);
+}
