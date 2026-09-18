@@ -1,0 +1,143 @@
+/* MLAttributierungNeu — SHAP-Panel mit Klartext-Labels, UX-Review 2026-04-20 */
+
+.man-container {
+  margin-top: 0.6rem;
+  padding: 0.3rem 0;
+  border-top: 1px solid var(--rahmen-subtil);
+}
+
+.man-toggle {
+  background: none;
+  border: 0;
+  color: var(--text-sekundaer);
+  cursor: pointer;
+  font-size: 0.82rem;
+  padding: 0.15rem 0;
+}
+
+.man-toggle:hover { color: var(--text-primaer); }
+
+.man-panel {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.man-status,
+.man-fehler {
+  font-size: 0.82rem;
+  color: var(--text-gedaempft);
+}
+
+.man-fehler { color: var(--farbe-gefahr); }
+
+.man-horizont {
+  padding: 0.45rem 0.6rem;
+  background: var(--bg-subtil);
+  border-radius: 6px;
+}
+
+.man-kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.man-kopf-titel {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primaer);
+}
+
+.man-legende {
+  font-size: 0.72rem;
+  color: var(--text-gedaempft);
+}
+
+.man-legende-eintrag.positiv { color: var(--farbe-info); }
+.man-legende-eintrag.negativ { color: var(--farbe-warnung-text); }
+.man-legende-sep { margin: 0 0.25rem; }
+
+.man-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.man-zeile {
+  display: grid;
+  grid-template-columns: 10rem 1fr 4rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.man-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  color: var(--text-primaer);
+}
+
+.man-raw {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  background: var(--bg-karte);
+  padding: 0 0.25rem;
+  border-radius: 3px;
+}
+
+.man-featurewert {
+  font-size: 0.7rem;
+  color: var(--text-gedaempft);
+  font-variant-numeric: tabular-nums;
+}
+
+.man-bar-wrap {
+  position: relative;
+  height: 10px;
+}
+
+.man-bar-track {
+  position: relative;
+  height: 100%;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 5px;
+}
+
+.man-bar-nulllinie {
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: var(--text-gedaempft);
+}
+
+.man-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  border-radius: 2px;
+}
+
+.man-bar-positiv { background: var(--farbe-info); border-radius: 0 3px 3px 0; }
+.man-bar-negativ { background: var(--farbe-warnung); border-radius: 3px 0 0 3px; }
+
+.man-wert {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.man-wert.positiv { color: var(--farbe-info); }
+.man-wert.negativ { color: var(--farbe-warnung-text); }

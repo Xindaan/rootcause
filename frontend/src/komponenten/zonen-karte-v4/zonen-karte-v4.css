@@ -1,0 +1,373 @@
+/* =========================================================
+   Zonen-Karte v4 -- additive Layout-Styles fuer den V4-Tab.
+   Fork von V3 (UX-Review "Reife", T-0320). User-Entscheidung: alle
+   sechs Review-Beobachtungen, aber als eigener Tab `uebersicht-v4`,
+   damit V3 unberuehrt + nebeneinander testbar bleibt.
+
+   Card-interne `.zk-*`/`.badge`/`.opt-dots`-Klassen kommen weiter aus
+   karte-basis.css + zonen-karte-v3.css (beide global in App.tsx
+   importiert). Hier nur:
+     1. V4-Layout (Standort-Sektion + Grid, eigene `-v4`-Klassen)
+     2. spaeter: V4-spezifische Obs-Overrides -- IMMER unter `.zonen-grid-v4`
+        oder `.zk4` gescoped, nie eine flache `.zk-*`-Bestandsregel, sonst
+        bluetet die Aenderung in den V3-Tab.
+   ========================================================= */
+
+/* Volle Bildschirmbreite wie im V3-Tab (hebt die 1200-px-Deckelung aus
+   App.css auf). Doppel-Klasse `.app.app--v4` fuer hoehere Spezifitaet. */
+.app.app--v4 {
+  max-width: none;
+  /* Obs05 (T-0320): ML-Violett im V4-Tab entsaettigen, damit es nicht mit
+     dem FYTA-Quell-Violett (--quelle-fyta #5c3fb0) verwechselt wird --
+     Analyse-/Status-Farbe vs Identitaets-Farbe. Cascade gilt nur im V4-Tab,
+     greift damit ueberall wo `var(--chart-ml)` genutzt wird (ML-Suffix,
+     Charts). V3 bleibt beim saturierten #7c5cbf. */
+  --chart-ml: #8a7cae;
+}
+
+.standort-sektion-v4 {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+/* T-0397 (F21): Hinweis-Box wenn keine Zonen geladen sind -- statt stummer
+   leerer Flaeche, die sich wie "alles weg" liest. */
+.zonen-leer-hinweis {
+  background: var(--bg-karte);
+  border: 1px dashed var(--rahmen);
+  border-radius: 10px;
+  padding: 24px 18px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--text-gedaempft);
+}
+.standort-kopf-v4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+.standort-nm-v4 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.standort-meta-v4 {
+  font-family: var(--schrift-mono);
+  font-size: 10.5px;
+  color: var(--text-gedaempft);
+  letter-spacing: 0.4px;
+}
+.zonen-grid-v4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+/* ManuellesGiessen-Banner in den schmalen Karten umbrechbar (analog
+   zonen-karte-v3.css:318, aber auf das V4-Grid gescoped). */
+.zonen-grid-v4 .giessen-container {
+  flex-wrap: wrap;
+}
+.zonen-grid-v4 .giessen-container.mg-lauf .giessen-label {
+  min-width: 0;
+}
+.zonen-grid-v4 .giessen-container.mg-lauf .giessen-stop {
+  margin-left: 0;
+}
+
+/* =========================================================
+   Obs01 -- Badge-Hierarchie. Modus-Qualifier an den Namen, Warnungen in
+   die Action-Zeile, Glance-Badges reduziert auf Modus + Sensor-Pills.
+   ========================================================= */
+/* Name + Modus-Qualifier (Kalibrierung/Event-Ignore/Regime/AquaBloom). */
+.zk4-nm-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.zk4-nm-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+/* Warnungen als Handlungssignal oben in der Action-Box (rot = kritisch,
+   amber = Hinweis) -- nicht mehr als Glance-Badge. */
+.zk4-warnzeile {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 9px;
+}
+.zk4-warn {
+  display: flex;
+  gap: 7px;
+  align-items: baseline;
+  font-size: 11.5px;
+  line-height: 1.4;
+  padding: 7px 9px;
+  border-radius: 6px;
+  border-left: 3px solid;
+}
+.zk4-warn b { font-weight: 600; }
+.zk4-warn__ic { flex-shrink: 0; }
+.zk4-warn__det { opacity: 0.85; }
+.zk4-warn--kritisch {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+  border-left-color: var(--farbe-gefahr);
+}
+.zk4-warn--hinweis {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+  border-left-color: var(--farbe-warnung);
+}
+
+/* =========================================================
+   Obs04 -- Reaktive Dichte. OK-Karten duerfen ruhiger sein: ein gruener
+   "alles ok"-Punkt statt vier Dots, gedaempfte OK-Action-Zeile.
+   ========================================================= */
+.zk4-allok {
+  font-family: var(--schrift-mono);
+  font-size: 10px;
+  color: var(--farbe-gesund);
+  gap: 6px;
+}
+.zk4-allok .opt-dots__punkt { background: var(--farbe-gesund); }
+/* OK-Action ruhiger -- die "Im Korridor"-Zeile als gedaempfte Mikro-Zeile. */
+.zk4 .zk-action--ok .zk-action__titel {
+  font-size: 11.5px;
+  color: var(--text-gedaempft);
+  font-weight: 600;
+}
+
+/* =========================================================
+   Obs03 -- Klick-Affordanz. Fuss-Zeile mit Inline-Toggle (links, klappt
+   unter) + "Alle Details ↗"-Hinweis (rechts, Hover, oeffnet Drawer).
+   ========================================================= */
+.zk4-fuss {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--rahmen-subtil);
+}
+/* Toggle uebernimmt die Fuss-Zeile nicht mehr allein -- Rahmen/Abstand
+   wandern an `.zk4-fuss`, der Button schrumpft auf seinen Inhalt. */
+.zk4 .zk-toggle {
+  width: auto;
+  gap: 5px;
+  border-top: 0;
+  padding-top: 0;
+}
+.zk4-drawer-hint {
+  font-family: var(--schrift-mono);
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  color: var(--farbe-info);
+  white-space: nowrap;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+/* Hinweis erscheint beim Hover ueber der Karte -- "immer an derselben Stelle". */
+.zk4.zk--klickbar:hover .zk4-drawer-hint { opacity: 0.95; }
+/* Touch/kein-Hover: Hinweis dauerhaft (leicht) sichtbar, sonst unauffindbar. */
+@media (hover: none) {
+  .zk4-drawer-hint { opacity: 0.7; }
+}
+
+/* =========================================================
+   T-0370 -- Ehrlichkeits-Zustaende + Badge-Wahrheit.
+   ========================================================= */
+/* Rahmen-Farbe folgt dem Zustand. Die Farb-Legende versprach schon immer
+   "amber giessen" -- die Regel fuer zk--giessen fehlte aber (Karte blieb
+   gruen). Hier v4-gescoped nachgezogen, plus die zwei neuen Zustaende. */
+.zk4.zk--giessen    { border-top-color: var(--farbe-warnung); }
+.zk4.zk--beobachten { border-top-color: var(--farbe-vorschlag); }
+.zk4.zk--sensor     { border-top-color: var(--rahmen-stark); }
+
+/* Neutrale Wert-Farbe wenn die Datenbasis fehlt/unzuverlaessig ist --
+   ein gruener Wert aus toten Daten waere gelogen. */
+.zk4 .zk-head__pct--stumm { color: var(--text-gedaempft); }
+
+/* Action-Panel der neuen Zustaende: beobachten = Vorschlag-Ton (Bedarf,
+   aber keine Aktion), sensor = bewusst stumm/neutral. */
+.zk4 .zk-action--beobachten {
+  background: var(--farbe-vorschlag-bg);
+  border-left-color: var(--farbe-vorschlag);
+}
+.zk4 .zk-action--beobachten .zk-action__titel { color: var(--farbe-vorschlag); }
+.zk4 .zk-action--sensor { /* bleibt neutral, --bg-subtil */ }
+.zk4 .zk-action--sensor .zk-action__titel {
+  font-size: 11.5px;
+  color: var(--text-sekundaer);
+  font-weight: 600;
+}
+
+/* SHADOW-Badge: neutral + gestrichelt -- "laeuft mit, schaltet nicht".
+   Bewusst NICHT gruen (gruen = wirklich scharf) und nicht blau
+   (= Monitoring). */
+.zk4 .badge.zk4-shadow {
+  background: var(--bg-subtil);
+  color: var(--text-sekundaer);
+  border: 1px dashed var(--rahmen-stark);
+  padding: 2px 9px;
+}
+
+/* Alle Karten behalten EINHEITLICHE Grid-Breite. Die fruehere Hero-Zeile
+   (.zk--expanded { grid-column: 1 / -1 }) ging von EINER auto-offenen
+   Kritisch-Karte aus -- tatsaechlich oeffnet useExpandedState JEDE
+   kritisch/giessen-Zone automatisch, d.h. mehrere Karten wurden voll-breit
+   -> wilde Mischung aus schlanken und breiten Kacheln (Regression T-0370,
+   gemeldet 02.07.). Expandierte Karten werden daher nur hoeher, nicht
+   breiter. Etwaige Totflaeche neben einer hohen Karte ist der akzeptierte
+   Kompromiss; echte Hero-Logik (nur bei genau EINER offenen Karte) ->
+   Folge-Task T-0374. */
+.zonen-grid-v4 > * { min-width: 0; }
+
+/* Wasser-Bilanz-Kacheln: Wert nicht umbrechen ("-75" / "L" auf zwei
+   Zeilen) -- Kachel waechst stattdessen. Auf schmalen Viewports lief
+   die dritte Kachel rechts aus dem Karten-Rand -> einspaltig stapeln. */
+.zk4 .wb-kpi-wert { white-space: nowrap; }
+@media (max-width: 640px) {
+  .zk4 .wb-kpis { grid-template-columns: 1fr; }
+}
+
+/* T-0431/T-0432-Nachzug: der Pausier-Hinweis kommt jetzt als echtes Element
+   aus ManuellesGiessen (mit Umlauten), nicht mehr als CSS-`content`. Damit
+   entfallen die frueheren drei v4-Overrides (Manuell/Automatik/Fremd), die
+   nur die ASCII-Fassung aus karte-basis textlich ersetzen mussten -- und mit
+   ihnen die Spezifitaets-/Reihenfolge-Falle, an der der erste T-0411-Fix
+   scheiterte. Die Optik erbt v4 aus der (nicht .zk4-gescopten) Basisregel. */
+.zk4 .mg-lauf__committed { color: var(--text-gedaempft); font-size: 0.85em; }
+
+/* =========================================================
+   Obs02 -- Triage-Strip (TriageStripV4). Sticky Zaehl-Leiste ueber allen
+   Standort-Sektionen. Klick auf einen Chip springt zur ersten Zone.
+   ========================================================= */
+.triage-v4 {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+.triage-v4--ruhig {
+  color: var(--farbe-gesund);
+  font-size: 13px;
+  font-weight: 600;
+  gap: 9px;
+}
+.triage-v4__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--farbe-gesund);
+  display: inline-block;
+}
+.triage-v4__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 5px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: var(--bg-subtil);
+  color: var(--text-sekundaer);
+}
+.triage-v4__chip:hover { filter: brightness(0.97); }
+.triage-v4__n { font-family: var(--schrift-mono); font-weight: 700; }
+/* Kalibrierung als separater (orthogonaler) Zustand rechts abgesetzt. */
+.triage-v4__chip--rechts { margin-left: auto; }
+.triage-v4__chip--kritisch {
+  background: var(--farbe-gefahr-bg); color: var(--farbe-gefahr);
+  border-color: color-mix(in oklab, var(--farbe-gefahr) 25%, transparent);
+}
+.triage-v4__chip--giesst {
+  background: var(--farbe-info-bg); color: var(--farbe-info);
+  border-color: color-mix(in oklab, var(--farbe-info) 25%, transparent);
+}
+.triage-v4__chip--empfehlung {
+  background: var(--farbe-warnung-bg); color: var(--farbe-warnung-text);
+  border-color: color-mix(in oklab, var(--farbe-warnung) 25%, transparent);
+}
+.triage-v4__chip--nass { background: var(--farbe-info-bg); color: var(--farbe-info); }
+.triage-v4__chip--korridor { background: var(--farbe-gesund-bg); color: var(--farbe-gesund); }
+.triage-v4__chip--unbekannt { background: var(--bg-subtil); color: var(--text-gedaempft); }
+.triage-v4__chip--kalibrierung {
+  background: color-mix(in oklab, var(--farbe-warnung) 14%, var(--bg-karte));
+  color: var(--farbe-warnung-text);
+  border-color: color-mix(in oklab, var(--farbe-warnung) 32%, transparent);
+}
+
+/* T-0370: Mobile -- der Strip ist sticky und wickelte auf 3 Chip-Zeilen
+   (~230px = fast ein Drittel des Viewports dauerhaft belegt, ueberdeckte
+   Karten-Koepfe). Eine Zeile, horizontal wischbar. */
+@media (max-width: 640px) {
+  .triage-v4 {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 8px 10px;
+  }
+  .triage-v4::-webkit-scrollbar { display: none; }
+  .triage-v4__chip { flex-shrink: 0; }
+  .triage-v4__chip--rechts { margin-left: 0; }
+}
+
+/* =========================================================
+   Obs05 -- Farb-Legende am Standort-Header (erklaert das Farbsystem einmal
+   pro Standort, dezent als Hover-Tooltip).
+   ========================================================= */
+.standort-kopf-v4__rechts {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.zk4-legende {
+  font-family: var(--schrift-mono);
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+  cursor: help;
+  white-space: nowrap;
+}
+.zk4-legende:hover { color: var(--text-sekundaer); }
+
+/* =========================================================
+   Obs06 -- Drawer: einmaliger Border-Puls auf der geklickten Karte als
+   Bezug Karte -> Drawer. (Scroll-Lock passiert per JS im Drawer.)
+   ========================================================= */
+@keyframes zk4-puls {
+  0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--farbe-info) 55%, transparent); }
+  100% { box-shadow: 0 0 0 7px color-mix(in oklab, var(--farbe-info) 0%, transparent); }
+}
+.zk4-puls { animation: zk4-puls 0.9s ease-out 1; }
+
+/* T-0432: Marker vor der Empfehlungs-Detailzeile waehrend eines Laufs. */
+.zk4 .zk-action__waere-jetzt { color: var(--text-gedaempft); font-style: italic; }

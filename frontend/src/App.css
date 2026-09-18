@@ -1,0 +1,185 @@
+/* App-Layout + Standort-Sektionen */
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 20px 40px;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rahmen);
+}
+
+.app-header-links {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.app-header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primaer);
+  letter-spacing: -0.3px;
+}
+
+.app-header-rechts {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.notfall-stopp-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background: var(--farbe-gefahr);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  animation: pulsieren 2s ease-in-out infinite;
+}
+
+.notfall-stopp-btn:hover {
+  opacity: 0.85;
+}
+
+@keyframes pulsieren {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.refresh-info {
+  font-size: 13px;
+  color: var(--text-gedaempft);
+}
+
+.tab-leiste {
+  display: inline-flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 6px;
+  background: var(--bg-subtil);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 999px;
+}
+
+.tab-btn {
+  min-height: 38px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-sekundaer);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab-btn.aktiv {
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+  box-shadow: var(--karte-schatten);
+}
+
+.tab-btn-neu {
+  position: relative;
+}
+
+.tab-btn-neu::after {
+  content: 'NEU';
+  position: absolute;
+  top: -4px;
+  right: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: var(--farbe-vorschlag);
+  color: #fff;
+  line-height: 1;
+}
+
+.tab-leiste {
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+/* Standort-Sektionen */
+.standort-sektion {
+  margin-bottom: 32px;
+}
+
+.standort-titel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+
+/* Zonen-Grid */
+.zonen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .app-header-links,
+  .app-header-rechts {
+    flex-wrap: wrap;
+  }
+
+  .zonen-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* T-0370: die 999px-Pille wirkt umgebrochen (3 Zeilen) wie ein
+     verformtes Oval und frisst Platz. Mobil: kompaktes, eckigeres
+     Panel mit engeren Buttons. */
+  .tab-leiste {
+    border-radius: 14px;
+    gap: 4px;
+    padding: 4px;
+  }
+  .tab-btn {
+    min-height: 40px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+}
+
+/* T-0370 (A11y): sichtbarer Tastatur-Fokus fuer alle Interaktiven --
+   vorher nur Browser-Default, der auf den Pill-Buttons kaum sichtbar war. */
+:focus-visible {
+  outline: 2px solid var(--farbe-info);
+  outline-offset: 2px;
+}
+
+/* Wetter */
+.wetter-section {
+  max-width: 700px;
+}
+
+/* Recharts Tooltip */
+.recharts-tooltip-wrapper {
+  font-size: 13px;
+}

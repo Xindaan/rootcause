@@ -1,0 +1,134 @@
+/* KritischBand — oberste Dashboard-Zeile */
+
+.krit-band {
+  /* T-0397 (F10b, Andre "zu viel Overhead/Leerspace oben"): kompakter -- der
+     Block sitzt auf Premium-Real-Estate ganz oben. */
+  margin: 0 0 0.6rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--farbe-gefahr-bg);
+  border: 1px solid var(--farbe-gefahr);
+  border-left-width: 5px;
+  border-radius: var(--karte-radius);
+}
+
+.krit-band-kopf {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.krit-band-titel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--farbe-gefahr);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.krit-band-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--farbe-gefahr);
+  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.2);
+}
+
+/* T-0397 (F10b-3): Kachel-Grid statt Full-Width-Liste. Auto-fill fuellt den
+   Horizontalraum mit mehreren Kacheln pro Reihe (loest den leeren Mittelraum
+   auf) und wrappt auf schmalen Viewports von selbst -> keine Mobile-Media-
+   Query mehr noetig. */
+.krit-band-grid {
+  display: grid;
+  /* auto-fit (nicht auto-fill): bei wenigen kritischen Zonen strecken sich die
+     Kacheln auf die volle Reihenbreite, statt leere Spalten rechts zu lassen. */
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.5rem;
+}
+
+.krit-band-kachel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.45rem 0.65rem;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-left: 3px solid var(--farbe-gefahr);
+  border-radius: 7px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+.krit-band-kachel.grund-prognose_unter_min {
+  border-left-color: var(--farbe-warnung);
+}
+/* T-0532: Lead-Ausfall ist keine Gefahr, sondern eine Datenluecke --
+   deshalb neutral-grau statt rot. Ein roter Rahmen wuerde die Aussage der
+   Kachel ("Zustand unbekannt") optisch wieder dementieren. */
+.krit-band-kachel.grund-lead_ausgefallen {
+  border-left-color: var(--text-sekundaer);
+}
+.krit-band-kachel:hover { background: var(--bg-subtil); }
+
+.kbk-kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.krit-band-zeilendot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--farbe-gefahr);
+  flex-shrink: 0;
+  align-self: center;
+}
+.krit-band-kachel.grund-prognose_unter_min .krit-band-zeilendot {
+  background: var(--farbe-warnung);
+}
+.krit-band-kachel.grund-lead_ausgefallen .krit-band-zeilendot {
+  background: var(--text-sekundaer);
+}
+
+.kbk-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primaer);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kbk-ist {
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--farbe-gefahr);
+  line-height: 1;
+}
+.krit-band-kachel.grund-prognose_unter_min .kbk-ist {
+  color: var(--farbe-warnung-text);
+}
+/* T-0532: der Wert stammt nicht vom Lead -- er darf nicht in Alarmrot
+   dastehen, sonst liest man die Zahl weiter als Zonen-Zustand. */
+.krit-band-kachel.grund-lead_ausgefallen .kbk-ist {
+  color: var(--text-sekundaer);
+}
+
+.kbk-schwelle {
+  font-size: 0.72rem;
+  color: var(--text-sekundaer);
+  font-variant-numeric: tabular-nums;
+}
+.kbk-sub {
+  font-size: 0.72rem;
+  color: var(--text-sekundaer);
+}

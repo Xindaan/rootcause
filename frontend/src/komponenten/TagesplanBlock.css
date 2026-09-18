@@ -1,0 +1,263 @@
+/* T-0227: TagesplanBlock — kompakte Liste oben auf der Uebersicht. */
+
+.tagesplan-block {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-left: 4px solid var(--farbe-info);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}
+
+.tagesplan-block.tagesplan-fehler {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+  border-color: color-mix(in oklab, var(--farbe-gefahr) 30%, transparent);
+}
+
+.tp-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.tp-header h3 {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-primaer);
+}
+
+.tp-toggle {
+  display: inline-flex;
+  background: var(--bg-app);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.tp-toggle-btn {
+  background: transparent;
+  border: none;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: var(--text-gedaempft);
+}
+
+.tp-toggle-btn.aktiv {
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+  font-weight: 600;
+}
+
+.tp-wetter {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-gedaempft);
+}
+
+.tp-wetter-eintrag strong {
+  color: var(--text-primaer);
+}
+
+.tp-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tp-eintrag {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg-app);
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.tp-eintrag-kein {
+  opacity: 0.7;
+}
+
+.tp-zeit {
+  font-family: var(--schrift-mono, monospace);
+  font-weight: 600;
+  min-width: 50px;
+}
+
+.tp-zone {
+  font-weight: 600;
+  flex: 1;
+  min-width: 100px;
+}
+
+.tp-typ {
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.tp-typ-akut {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+}
+
+.tp-typ-praeventiv {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+
+.tp-typ-wohlfuehl {
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+}
+
+.tp-typ-kein {
+  background: var(--rahmen);
+  color: var(--text-gedaempft);
+}
+
+.tp-typ-fehler {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+}
+
+.tp-dauer {
+  font-family: var(--schrift-mono, monospace);
+  font-size: 12px;
+  color: var(--text-gedaempft);
+}
+
+.tp-strat {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+}
+
+.tp-konflikt {
+  font-size: 11px;
+  color: var(--farbe-warnung-text);
+  font-weight: 600;
+}
+
+.tp-grund {
+  width: 100%;
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* T-0576: wann das Giessfenster wieder offen ist. Eigene Zeile, weil
+   `.tp-grund` abschneidet und der Zeitpunkt die eigentliche Antwort ist. */
+.tp-fenster {
+  width: 100%;
+  font-size: 11px;
+  color: var(--text-gedaempft);
+}
+
+.tp-leer {
+  margin: 6px 0;
+  font-size: 13px;
+  color: var(--text-gedaempft);
+}
+
+.tp-details {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.tp-details summary {
+  cursor: pointer;
+  color: var(--text-gedaempft);
+  padding: 4px 0;
+}
+
+.tp-liste-kein {
+  margin-top: 6px;
+}
+
+.tp-reserve {
+  margin-left: auto;
+  color: var(--text-gedaempft);
+}
+
+/* T-0259: Live-Lauf-Indikator. */
+.tp-live {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin: 6px 0;
+  background: #e0f4e8;
+  border: 1px solid #b6dec5;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #14613a;
+  font-weight: 600;
+}
+
+.tp-live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #14a35a;
+  animation: tp-live-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes tp-live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.tp-live-label { font-weight: 700; }
+
+.tp-live-zone {
+  padding: 2px 10px;
+  background: #fff;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #14613a;
+}
+
+/* T-0257: "Bedarf, aber blockiert"-Sektion -- visuell anders als
+   "kein Bedarf" weil semantisch anders. */
+.tp-details-bedarf > summary {
+  color: var(--text-primaer);
+  font-weight: 600;
+  padding: 6px 0;
+}
+
+.tp-liste-bedarf {
+  margin-top: 6px;
+}
+
+.tp-eintrag-bedarf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 8px;
+  background: #fff7e0;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+/* T-0575: fehlende Wetterdaten sichtbar machen. Gedaempft, aber nicht
+   unsichtbar -- der alte Zustand war ein leerer Block, der wie eine
+   Trockenprognose aussah. */
+.tp-wetter-fehlt {
+  font-style: italic;
+  color: var(--text-gedaempft);
+}

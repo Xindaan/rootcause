@@ -1,0 +1,130 @@
+/* Eigenstaendige Gestaltung. Alle Komponenten-Overrides bleiben innerhalb
+   .un; die bisherige Uebersicht behaelt ihre Darstellung. */
+.app--neu { max-width: 1320px; }
+.app--neu .tab-leiste { border-radius: 12px; }
+.app--neu .tab-btn { border-radius: 8px; }
+.un {
+  --un-ink: #263b30;
+  --un-muted: #626e66;
+  --un-green: #35674b;
+  --un-border: #dce2db;
+  --un-soft: #eef3ed;
+  color: var(--un-ink);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.un h2, .un h3, .un p { margin: 0; }
+.un button, .un select { font: inherit; }
+.un button:focus-visible, .un select:focus-visible, .un summary:focus-visible { outline: 3px solid var(--un-green); outline-offset: 3px; }
+.un-kopf { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin: 14px 0 20px; }
+.un-kopf h2 { font-size: 29px; font-weight: 600; letter-spacing: -.7px; }
+.un .un-oberzeile { color: var(--un-muted); font-size: 11px; font-weight: 600; letter-spacing: 1.2px; margin-bottom: 3px; }
+.un .un-meta { color: var(--un-muted); font-size: 13px; overflow-wrap: anywhere; }
+.un-heute { display: flex; align-items: baseline; gap: 8px 20px; flex-wrap: wrap; background: var(--un-soft); padding: 14px 18px; border-radius: 10px; }
+.un-heute strong { font-weight: 600; }
+.un-heute span { color: var(--un-muted); font-size: 13px; }
+.un-heute--kritisch { background: #f8eae5; }
+.un-heute--kritisch strong { color: #a33831; }
+.un .un-fehler { padding: 12px 16px; border-left: 3px solid #a96e22; background: #fbf1df; margin-bottom: 14px; overflow-wrap: anywhere; }
+.un-auswahlleiste { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 22px 0 18px; }
+.un-auswahlleiste label { display: grid; gap: 4px; font-size: 12px; color: var(--un-muted); min-width: 0; }
+.un-auswahlleiste select { min-height: 42px; border: 1px solid var(--un-border); background: #fff; border-radius: 8px; padding: 8px 32px 8px 12px; color: var(--un-ink); max-width: 100%; font-size: 15px; }
+.un-filter { display: flex; gap: 4px; background: #e9ede7; padding: 4px; border-radius: 10px; }
+.un-filter button { border: 0; border-radius: 7px; padding: 8px 12px; background: transparent; color: var(--un-muted); cursor: pointer; font-size: 13px; min-height: 36px; }
+.un-filter button[aria-pressed="true"] { background: #fff; color: var(--un-ink); box-shadow: 0 1px 2px #263b3012; }
+.un-layout { display: grid; grid-template-columns: minmax(255px, .7fr) minmax(0, 1.3fr); gap: 24px; align-items: start; }
+.un-liste { min-width: 0; display: grid; gap: 10px; }
+.un .un-gruppe { font-size: 12px; color: var(--un-muted); font-weight: 600; margin: 14px 0 8px; }
+.un-liste > div:first-child .un-gruppe { margin-top: 0; }
+.un-zone { display: block; width: 100%; text-align: left; padding: 16px 18px; border: 1px solid var(--un-border); border-radius: 13px; background: #fff; color: var(--un-ink); cursor: pointer; }
+.un-zone:hover { border-color: #91a48e; }
+.un-zone[aria-pressed="true"] { background: var(--un-soft); border-color: var(--un-green); box-shadow: inset 3px 0 var(--un-green); }
+.un-zone-kopf { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-weight: 600; }
+.un-zone-kopf > span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.un-zone-wert { font-size: 25px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.un-zone-wert small { font-size: 13px; color: var(--un-muted); }
+.un-zone-status { display: flex; align-items: center; gap: 7px; color: var(--un-status); font-size: 13px; margin-top: 3px; }
+.un-zone-meta { display: block; color: var(--un-muted); font-size: 12px; margin-top: 8px; }
+.un-ton--ruhig { --un-status: #35674b; }
+.un-ton--bedarf { --un-status: #89601d; }
+.un-ton--kritisch { --un-status: #ae3931; }
+.un-ton--info { --un-status: #2b6580; }
+.un-ton--unbekannt { --un-status: #656566; }
+.un-ton--aktiv { --un-status: #1c796f; }
+.un-punkt { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--un-status); flex-shrink: 0; }
+.un-detail { min-width: 0; padding: 26px; border: 1px solid var(--un-border); border-radius: 16px; background: #fff; }
+.un-detail-kopf { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.un-detail-kopf h2 { font-size: 25px; font-weight: 600; letter-spacing: -.5px; margin-top: 4px; overflow-wrap: anywhere; }
+.un-status { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; padding: 5px 0; color: var(--un-status); }
+.un-messung { display: flex; align-items: center; gap: 22px; margin: 22px 0 14px; }
+.un-messung strong { font-size: 14px; font-weight: 500; }
+.un-wert { font-size: 52px; font-weight: 500; letter-spacing: -1.5px; line-height: 1.1; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.un-wert small { font-size: 23px; color: var(--un-muted); letter-spacing: 0; }
+.un-wert--unsicher { color: var(--un-muted); }
+.un .un-begruendung { font-size: 14px; margin: 14px 0 18px; overflow-wrap: anywhere; }
+.un-skala { margin: 22px 0; }
+.un-skala-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; color: var(--un-muted); font-size: 12px; margin: 9px 0; }
+.un-spur { height: 10px; position: relative; background: #e9ede7; border-radius: 4px; }
+.un-band { position: absolute; height: 100%; background: #c4dcc5; }
+.un-grenze { position: absolute; width: 1px; height: 10px; background: #6f8c71; }
+.un-ist { position: absolute; top: -4px; height: 18px; width: 3px; margin-left: -1.5px; border-radius: 2px; background: var(--un-ink); }
+.un-prognose { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; border-block: 1px solid var(--un-border); }
+.un-prognose strong { font-size: 24px; font-weight: 500; }
+.un-prognose > p { text-align: right; max-width: 55%; }
+.un-steuerung, .un-datenbasis { margin-top: 24px; }
+.un h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; }
+.un-steuerung .zk-action { margin: 0 0 12px; padding: 0; background: transparent; border: 0; }
+.un-steuerung .zk-action__titel { font-family: inherit; font-size: 14px; }
+.un-steuerung .zk-action__detail, .un-steuerung .zk-action__body, .un-steuerung .zk-action__wann { font-family: inherit; font-size: 13px; line-height: 1.6; }
+.un-steuerung .giessen-container { margin-top: 12px; }
+.un-steuerung button { min-height: 38px; }
+.un .un-bedienhinweis { font-size: 12px; color: var(--un-muted); margin-top: 12px; }
+.un-datenbasis ul { list-style: none; padding: 0; margin: 0 0 12px; }
+.un-datenbasis li { display: flex; gap: 12px; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #edf0eb; }
+.un-datenbasis li strong { display: block; font-size: 13px; font-weight: 500; overflow-wrap: anywhere; }
+.un-datenbasis li .un-meta { display: block; font-size: 12px; }
+.un-sensor-wert { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.un .un-warnungen li { color: #89601d; font-size: 13px; display: list-item; }
+.un .un-technik { font-size: 12px; color: var(--un-muted); margin-top: 14px; }
+.un-systemgrund { margin-top: 12px; }
+.un-systemgrund summary { cursor: pointer; font-size: 12px; color: var(--un-muted); padding: 6px 0; }
+.un-analyse { margin-top: 22px; border-top: 1px solid var(--un-border); }
+.un-analyse > summary, .un-plan > summary { padding: 16px 0; cursor: pointer; font-size: 15px; font-weight: 500; }
+.un-analyse > summary span { display: block; font-size: 12px; font-weight: 400; color: var(--un-muted); margin-top: 4px; }
+.un-analyse .zk-inspect { padding: 0; border: 0; }
+.un-analyse .zk-inspect__lbl, .un-analyse .zk-zeitraum-btn { font-family: inherit; font-size: 12px; }
+.un-analyse .zk-inspect__row { padding: 14px 0; }
+.un-analyse .zk-zeitraum-btn { min-height: 36px; padding-inline: 10px; }
+.un-analyse .zk-chart-wrap { min-height: 240px; }
+.un-plan { margin-top: 26px; border-top: 1px solid var(--un-border); }
+.un .un-leer { padding: 32px 16px; text-align: center; color: var(--un-muted); }
+.un-zurueck { display: none; }
+@media (max-width: 760px) {
+  .app--neu { padding: 12px 14px 30px; }
+  .app--neu .app-header { margin-bottom: 12px; gap: 6px; }
+  .app--neu .app-header h1 { font-size: 19px; }
+  .app--neu .tab-leiste { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; padding: 4px; margin-bottom: 8px; }
+  .app--neu .tab-btn { padding: 4px; min-height: 40px; font-size: 12px; }
+  .un-kopf { display: block; margin: 12px 0 15px; }
+  .un-kopf h2 { font-size: 25px; }
+  .un-kopf > .un-meta { margin-top: 4px; }
+  .un-heute { padding: 12px; gap: 3px; }
+  .un-heute span { display: block; width: 100%; }
+  .un-auswahlleiste { align-items: stretch; flex-direction: column; margin: 15px 0; }
+  .un-auswahlleiste select { font-size: 16px; width: 100%; }
+  .un-filter { align-self: start; }
+  .un-filter button { min-height: 40px; }
+  .un-layout { grid-template-columns: minmax(0, 1fr); }
+  .un-detail { display: none; padding: 18px; }
+  .un--mobil-details .un-detail { display: block; }
+  .un--mobil-details .un-liste, .un--mobil-details .un-auswahlleiste, .un--mobil-details .un-kopf, .un--mobil-details .un-heute { display: none; }
+  .un--mobil-details .un-layout { margin-top: 12px; }
+  .un-zurueck { display: block; min-height: 44px; border: 0; background: transparent; padding: 0 0 12px; color: var(--un-green); font-size: 14px; cursor: pointer; }
+  .un-detail-kopf h2 { font-size: 23px; }
+  .un-messung { gap: 16px; }
+  .un-wert { font-size: 44px; }
+  .un-messung > div:last-child { min-width: 0; }
+  .un-zone { padding: 13px 15px; }
+  .un-steuerung button, .un-analyse .zk-zeitraum-btn { min-height: 44px; }
+  .un-steuerung input { font-size: 16px; max-width: 100%; }
+}

@@ -1,0 +1,358 @@
+/* =========================================================
+   Zonen-Karte v3 -- additive Styles (Q-A-Matrix Iteration 1).
+   Basis-Styles kommen aus zonen-karte-v2.css (geteilt). Hier nur
+   NEUE Klassen -- keine Bestands-`.zk-*`-Regel wird ueberschrieben,
+   damit die V2-Karte garantiert unberuehrt bleibt.
+   ========================================================= */
+
+/* Q19: Schwellen-Bar + 24h-ML-Suffix nebeneinander. Ersetzt die drei
+   ML-Werte im Header (frueher MlKompakt). */
+.zk-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.zk-bar-wrap {
+  flex: 1;
+  min-width: 0;
+}
+.zk-ml-suffix {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-family: var(--schrift-mono);
+  font-size: 10.5px;
+  color: var(--chart-ml);
+  white-space: nowrap;
+}
+.zk-ml-suffix__lbl {
+  color: var(--text-gedaempft);
+}
+.zk-ml-suffix b {
+  font-weight: 600;
+  font-size: 13px;
+}
+/* T-0573: unterdrueckte Prognose. Gedaempft und ohne die ML-Farbe --
+   die Karte soll sichtbar machen, dass hier bewusst keine Zahl steht,
+   ohne dass es wie ein Messwert aussieht. */
+.zk-ml-suffix--ungueltig {
+  color: var(--text-gedaempft);
+}
+.zk-ml-suffix--ungueltig b {
+  font-weight: 500;
+  font-size: 10.5px;
+  font-style: italic;
+}
+
+/* =================================================================
+   T-0221 Stage B: Standort-Layout V3 -- 4-Spalten-Grid + Sektions-
+   Header mit Meta-Zeile. Eigene Klassen, damit das V0/V1/V2-Layout
+   (`.zonen-grid`, `.standort-sektion`) unberuehrt bleibt.
+   ================================================================= */
+.standort-sektion-v3 {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+.standort-kopf-v3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+.standort-nm-v3 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.standort-meta-v3 {
+  font-family: var(--schrift-mono);
+  font-size: 10.5px;
+  color: var(--text-gedaempft);
+  letter-spacing: 0.4px;
+}
+/* T-0221: der V3-Reiter hebt die globale 1200-px-Deckelung von `.app`
+   auf und nutzt die volle Bildschirmbreite -- V0/V1/V2 bleiben bei
+   1200 px, weil `.app--v3` nur bei aktivem V3-Tab gesetzt wird. */
+/* Doppel-Klasse `.app.app--v3` -- hoehere Spezifitaet als `.app` aus
+   App.css, damit die 1200-px-Deckelung sicher ueberschrieben wird,
+   unabhaengig von der CSS-Quell-Reihenfolge. */
+.app.app--v3 {
+  max-width: none;
+}
+/* Karten ~320-360 px breit; das Grid fuellt die Standort-Sektion und
+   legt je nach Viewport-Breite mehrere Spalten an. `align-items: start`
+   haelt die Karten oben in ihrer Zeile.
+   Hinweis: ein Masonry-Layout via CSS Multi-Column wurde 22.05.
+   getestet und zurueckgenommen -- es brach die Kanal-Gruppierung
+   (sortiereZonenV3) horizontal, springt beim Aufklappen, war spuerbar
+   langsamer und reorganisierte Karten zwischen Expand-Zustaenden. */
+.zonen-grid-v3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+/* =================================================================
+   T-0221 Stage C: Karten-Inhalt -- Sensor-Pills (Q5/Q6), AquaBloom-
+   Pill (Q42), Strategie-Anchor (Q4). Additive Klassen.
+   ================================================================= */
+/* Q5/Q6: Sensor-Pills mit Klartextnamen + Quellfarb-Border-Akzent. */
+.sensor-pills {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.sensor-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--schrift-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.2px;
+  padding: 2px 6px 2px 5px;
+  border-radius: 4px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-left: 3px solid var(--quelle-gardena);
+  color: var(--text-primaer);
+  white-space: nowrap;
+}
+.sensor-pill--f { border-left-color: var(--quelle-fyta); }
+.sensor-pill--rest {
+  border-left-color: var(--rahmen-stark);
+  color: var(--text-gedaempft);
+}
+/* Q42: AquaBloom-Pill (eigene Pill, kein Sensor-Marker). Erweitert
+   die bestehende `.zk-badge`-Basis aus zonen-karte-v2.css. */
+.zk-badge--aquabloom {
+  background: color-mix(in oklab, var(--quelle-aquabloom) 12%, var(--bg-karte));
+  color: var(--quelle-aquabloom);
+  border: 1px solid color-mix(in oklab, var(--quelle-aquabloom) 30%, transparent);
+}
+/* Q43: Kalibrier-Pill -- Zone in aktivem ML-Ausschluss-Fenster
+   (Sensor-Kalibrierung). Amber, konsistent mit der Chart-Schraffur. */
+.zk-badge--kalibrierung {
+  background: color-mix(in oklab, var(--farbe-warnung) 14%, var(--bg-karte));
+  color: var(--farbe-warnung-text);
+  border: 1px solid color-mix(in oklab, var(--farbe-warnung) 32%, transparent);
+}
+/* T-0304: Event-Ignore-Pill -- Kanal-Events ignoriert (z.B. Gras-Beregnung,
+   T-0300). KEINE Kalibrierung: Sensor + Empfehlung gelten. Ruhiges Gruen
+   statt Amber-Warnung, damit es nicht als Stoerung gelesen wird. */
+.zk-badge--event-ignore {
+  background: color-mix(in oklab, var(--farbe-gesund) 12%, var(--bg-karte));
+  color: var(--farbe-gesund);
+  border: 1px solid color-mix(in oklab, var(--farbe-gesund) 30%, transparent);
+}
+
+/* Q4: ⓘ-Anchor fuer die Bewaesserungs-Strategie in der Sub-Zeile. */
+.zk-sub-info {
+  display: inline-grid;
+  place-items: center;
+  width: 13px;
+  height: 13px;
+  margin-left: 5px;
+  border: 1px solid var(--rahmen-stark);
+  border-radius: 50%;
+  font-size: 8.5px;
+  font-style: normal;
+  color: var(--text-gedaempft);
+  cursor: help;
+}
+
+/* =================================================================
+   T-0221 Stage D: Detail-Drawer (L5/L6) -- rechter Slide-In ueber
+   dem Grid, Overlay-Modus.
+   ================================================================= */
+.zk--klickbar { cursor: pointer; }
+.zk--klickbar:hover { border-color: var(--rahmen-stark); }
+
+.zk-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 28, 22, 0.35);
+  z-index: 900;
+  animation: zk-drawer-fade 0.15s ease-out;
+}
+/* `top` + `max-height` kommen inline aus der Komponente: der Drawer
+   oeffnet auf Hoehe der geklickten Karte und ist inhaltsgesteuert hoch
+   (gedeckelt auf den Platz bis zum Viewport-Rand) -- kein fixes 100vh,
+   damit ein duenner Drawer keine grosse weisse Flaeche zeigt. */
+.zk-drawer {
+  position: fixed;
+  right: 0;
+  width: min(440px, 94vw);
+  background: var(--bg-karte);
+  border-left: 1px solid var(--rahmen);
+  box-shadow: -6px 0 24px rgba(0, 0, 0, 0.12);
+  z-index: 901;
+  display: flex;
+  flex-direction: column;
+  animation: zk-drawer-slide 0.22s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+@keyframes zk-drawer-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes zk-drawer-slide {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.zk-drawer__kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+.zk-drawer__lbl {
+  font-family: var(--schrift-mono);
+  font-size: 9.5px;
+  color: var(--text-gedaempft);
+  letter-spacing: 0.6px;
+}
+.zk-drawer__titel {
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.zk-drawer__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-gedaempft);
+  padding: 4px 8px;
+  line-height: 1;
+}
+.zk-drawer__close:hover { color: var(--text-primaer); }
+.zk-drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.zk-drawer__sektion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.zk-drawer__sektion-lbl {
+  font-family: var(--schrift-mono);
+  font-size: 9.5px;
+  color: var(--text-gedaempft);
+  letter-spacing: 0.6px;
+}
+.zk-drawer__anomalien {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-sekundaer);
+}
+.zk-drawer__anomalien b { font-weight: 600; color: var(--text-primaer); }
+
+/* =================================================================
+   T-0221-Folge: eigener Chart-Tooltip -- zeigt alle Sensoren stabil
+   nebeneinander (letzter Wert pro Sensor), statt im Hover zwischen
+   ihnen zu springen.
+   ================================================================= */
+.zk-chart-tt {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 8px;
+  padding: 7px 9px;
+  font-size: 11px;
+  max-width: 270px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+.zk-chart-tt__zeit {
+  font-family: var(--schrift-mono);
+  font-size: 9.5px;
+  color: var(--text-gedaempft);
+  margin-bottom: 5px;
+}
+.zk-chart-tt__zeile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.5;
+}
+.zk-chart-tt__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+/* Name nimmt den Restplatz, darf umbrechen. */
+.zk-chart-tt__nm {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-sekundaer);
+}
+/* Wert: feste Spalte rechts -- bricht nie um, schrumpft nie. */
+.zk-chart-tt__wert {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: var(--schrift-mono);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.zk-chart-tt__fuss {
+  font-family: var(--schrift-mono);
+  font-size: 9px;
+  color: var(--text-gedaempft);
+  margin-top: 5px;
+  padding-top: 4px;
+  border-top: 1px solid var(--rahmen-subtil);
+}
+/* T-0407: die `grund`-Texte aus ml_ausschluss_fenster sind Config-
+   Langtexte (bis ~400 Zeichen, fuer Doku geschrieben, nicht fuer die
+   UI). Ungekappt waechst der Tooltip nach unten ueber den halben Chart
+   -- also genau die Unlesbarkeit, die T-0407 beseitigen soll, nur an
+   anderer Stelle. Drei Zeilen tragen den Kern ("T-0385: FYTA-Update
+   08.07. -- Skalenbruch"); der Volltext steht in default.yaml. */
+.zk-chart-tt__fuss--grund {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.45;
+}
+
+/* =================================================================
+   T-0221-Folge: ManuellesGiessen-Banner in den schmalen V3-Karten
+   (~320 px) umbrechbar machen. Ohne `flex-wrap` haelt das lange
+   "Bewaesserung laeuft ..."-Label seine Min-Content-Breite und
+   schiebt den roten Stop-Button ueber den Karten-Rand. V3-scoped
+   ueber `.zonen-grid-v3` -- V0/V1/V2 (eigene Grids) unberuehrt.
+   ================================================================= */
+.zonen-grid-v3 .giessen-container {
+  flex-wrap: wrap;
+}
+.zonen-grid-v3 .giessen-container.mg-lauf .giessen-label {
+  min-width: 0;
+}
+.zonen-grid-v3 .giessen-container.mg-lauf .giessen-stop {
+  margin-left: 0;
+}
+
+/* T-0573 AK6: letzter bekannter Wert, zu alt fuer eine Empfehlung.
+   Gedaempft, damit er nicht wie ein frischer Messwert aussieht -- aber
+   sichtbar, statt wie bisher als "-" verschwiegen zu werden. */
+.zk-head__pct--rueckfall {
+  opacity: 0.55;
+}

@@ -1,0 +1,471 @@
+/* =========================================================
+   Zonen-Karte v2 · Styles
+   Tab "Übersicht v2" — additiver Refactor neben ZonenKarte.css
+   Quelle-Farben, --rahmen-stark, --schrift-mono in design-tokens.css.
+   ========================================================= */
+
+/* =========================================================
+   Karten-Container
+   ========================================================= */
+.zk {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-top: 3px solid var(--farbe-gesund);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.zk.zk--kritisch { border-top-color: var(--farbe-gefahr); }
+.zk.zk--warn     { border-top-color: var(--farbe-warnung); }
+.zk.zk--info     { border-top-color: var(--farbe-info); }
+
+/* =========================================================
+   Schicht 1 · Glance
+   ========================================================= */
+.zk-glance { display: flex; flex-direction: column; gap: 8px; }
+
+.zk-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.zk-head__l { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.zk-head__nm { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.zk-head__sub { font-family: var(--schrift-mono); font-size: 10px; color: var(--text-gedaempft); letter-spacing: 0.4px; }
+.zk-head__badges { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; align-items: center; }
+.zk-head__r { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.zk-head__pct {
+  font-family: var(--schrift-mono);
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.zk-head__pct--kritisch { color: var(--farbe-gefahr); }
+.zk-head__pct--warn     { color: var(--farbe-warnung-text); }
+.zk-head__pct--ok       { color: var(--farbe-gesund); }
+.zk-head__pct--info     { color: var(--farbe-info); }
+.zk-head__pct--stale {
+  /* Veraltete Messung -- gedaempfte Farbe + diagonale Streifen-Schraffur,
+     damit der grosse Zahlenwert nicht missverstanden wird als aktuell. */
+  opacity: 0.55;
+}
+.zk-head__stale-mark {
+  font-size: 13px;
+  margin-left: 4px;
+  color: var(--farbe-warnung-text);
+  vertical-align: super;
+}
+.zk-head__trend { font-family: var(--schrift-mono); font-size: 10.5px; color: var(--text-gedaempft); }
+.zk-head__trend--down { color: var(--farbe-gefahr); }
+.zk-head__trend--up   { color: var(--farbe-info); }
+.zk-head__meta {
+  display: inline-flex;
+  gap: 4px;
+  align-items: baseline;
+}
+.zk-head__update {
+  font-family: var(--schrift-mono);
+  font-size: 9.5px;
+  color: var(--text-gedaempft);
+  letter-spacing: 0.3px;
+  cursor: help;
+}
+.zk-head__update--stale {
+  color: var(--farbe-warnung-text);
+  font-weight: 600;
+}
+.zk-head__ml {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-family: var(--schrift-mono);
+  font-size: 10.5px;
+  color: var(--chart-ml);
+  cursor: help;
+  margin-top: 2px;
+}
+.zk-head__ml-lbl {
+  font-size: 9px;
+  color: var(--text-gedaempft);
+  letter-spacing: 0.5px;
+  margin-right: 3px;
+}
+.zk-head__ml-val { font-weight: 600; }
+.zk-head__ml-val--unter { color: var(--farbe-gefahr); }
+.zk-head__ml-band {
+  font-size: 9px;
+  color: var(--text-gedaempft);
+}
+
+/* =========================================================
+   QuellenIndikator
+   ========================================================= */
+.quellen { display: inline-flex; gap: 2px; align-items: center; }
+.quellen__q {
+  width: 14px; height: 14px; border-radius: 3px;
+  display: grid; place-items: center;
+  font-family: var(--schrift-mono); font-size: 8.5px; font-weight: 600;
+  color: white;
+}
+.quellen__q--g { background: var(--quelle-gardena); }
+.quellen__q--f { background: var(--quelle-fyta); }
+.quellen__suffix {
+  font-family: var(--schrift-mono); font-size: 9.5px;
+  color: var(--text-gedaempft); margin-left: 4px; letter-spacing: 0.3px;
+}
+
+/* =========================================================
+   OptimumDots
+   ========================================================= */
+.opt-dots { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+.opt-dots__od {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-family: var(--schrift-mono); font-size: 9.5px; letter-spacing: 0.5px;
+  padding: 2px 6px 2px 4px; border-radius: 999px;
+}
+.opt-dots__punkt { width: 7px; height: 7px; border-radius: 50%; }
+.opt-dots__od--ok     { color: var(--farbe-gesund);  background: var(--farbe-gesund-bg); }
+.opt-dots__od--ok     .opt-dots__punkt { background: var(--farbe-gesund); }
+.opt-dots__od--warn   { color: var(--farbe-warnung-text); background: var(--farbe-warnung-bg); }
+.opt-dots__od--warn   .opt-dots__punkt { background: var(--farbe-warnung); }
+.opt-dots__od--gefahr { color: var(--farbe-gefahr);  background: var(--farbe-gefahr-bg); }
+.opt-dots__od--gefahr .opt-dots__punkt { background: var(--farbe-gefahr); }
+/* T-0397 (F9): Daten unzuverlaessig -> Achsen-Status neutralisieren, damit
+   tote Karten keine bunten "ok"-Achsen vortaeuschen. */
+.opt-dots__od--unsicher { color: var(--farbe-text-schwach, #888); background: var(--farbe-flaeche-schwach, #f0f0f0); }
+.opt-dots__od--unsicher .opt-dots__punkt { background: var(--farbe-text-schwach, #888); }
+
+/* =========================================================
+   Schwellen-Bar (Glance)
+   ========================================================= */
+.zk-bar { position: relative; height: 8px; background: var(--bg-subtil); border-radius: 999px; margin-top: 6px; }
+.zk-bar__korridor { position: absolute; top: 0; bottom: 0; background: color-mix(in oklab, var(--farbe-gesund) 30%, transparent); border-radius: 999px; }
+.zk-bar__optimum  { position: absolute; top: -3px; bottom: -3px; border: 1.5px dashed var(--farbe-optimum); border-radius: 999px; pointer-events: none; }
+.zk-bar__vorschlag { position: absolute; top: 11px; height: 3px; background: var(--farbe-vorschlag); border-radius: 999px; }
+.zk-bar__ist { position: absolute; top: -3px; width: 2px; height: 14px; background: var(--text-primaer); border-radius: 1px; }
+.zk-bar__ist--sub { width: 1.5px; height: 12px; top: -2px; background: var(--text-gedaempft); }
+.zk-bar__welke {
+  /* Welkepunkt-Marker (rote Vertikallinie links vom Korridor) -- macht
+     Dringlichkeit sichtbar: zwischen "Du"-Strich und Welke-Strich
+     ist die Reserve, bis die Pflanze welkt. */
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 14px;
+  background: var(--farbe-gefahr);
+  border-radius: 1px;
+  cursor: help;
+}
+.zk-bar__labels { position: relative; height: 12px; margin-top: 8px; font-family: var(--schrift-mono); font-size: 9px; color: var(--text-gedaempft); }
+.zk-bar__labels span { position: absolute; transform: translateX(-50%); }
+
+/* =========================================================
+   ML-Zeile (Glance)
+   ========================================================= */
+.zk-ml { display: flex; align-items: center; gap: 12px; padding: 6px 0 0; font-family: var(--schrift-mono); font-size: 10.5px; color: var(--chart-ml); }
+.zk-ml__lbl { font-size: 9.5px; color: var(--text-gedaempft); letter-spacing: 0.5px; }
+.zk-ml__h { display: inline-flex; gap: 3px; align-items: baseline; }
+.zk-ml__h-val { font-weight: 600; font-size: 11.5px; }
+.zk-ml__h-tag { font-size: 9px; color: var(--text-gedaempft); }
+.zk-ml__h--unter .zk-ml__h-val { color: var(--farbe-gefahr); }
+.zk-ml__band { font-size: 9.5px; color: var(--text-gedaempft); margin-left: auto; }
+
+/* =========================================================
+   Schicht 2 · Action
+   ========================================================= */
+.zk-action {
+  margin-top: 4px;
+  padding: 10px 12px;
+  background: var(--bg-subtil);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-left: 3px solid var(--rahmen-stark);
+}
+.zk-action--kritisch { background: var(--farbe-gefahr-bg);  border-left-color: var(--farbe-gefahr); }
+/* F3b (T-0397): ML-akut = amber wie giessen -- Warnung, nicht kritisch-rot. */
+.zk-action--giessen_akut,
+.zk-action--giessen  { background: var(--farbe-warnung-bg); border-left-color: var(--farbe-warnung); }
+.zk-action--ok       { background: var(--farbe-gesund-bg);  border-left-color: var(--farbe-gesund); }
+.zk-action--blocker  { /* bleibt neutral, --bg-subtil */ }
+
+.zk-action__titel { display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; }
+.zk-action__titel b { font-weight: 600; }
+.zk-action__wann { font-family: var(--schrift-mono); font-size: 10px; color: var(--text-gedaempft); }
+.zk-action__grund { font-size: 11.5px; color: var(--text-sekundaer); line-height: 1.4; }
+.zk-action__grund code, .zk-action__grund .mono { font-family: var(--schrift-mono); font-size: 11px; }
+.zk-action__buttons { display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap; }
+.zk-action__btn {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-stark);
+  border-radius: 4px;
+  font-family: var(--schrift-mono); font-size: 10.5px;
+  padding: 5px 10px; cursor: pointer; color: var(--text-sekundaer);
+}
+.zk-action__btn:hover { background: var(--bg-subtil); }
+.zk-action__btn--primary { background: var(--text-primaer); color: var(--bg-karte); border-color: var(--text-primaer); }
+.zk-action__btn--primary:hover { opacity: 0.9; }
+
+/* ManuellesGiessen innerhalb des Action-Blocks. Visuell als Fortsetzung,
+   nur eine subtile Trennlinie. */
+.zk-action__extras {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--rahmen-subtil);
+}
+.zk-action__extras .giessen-container {
+  /* V1-Komponente hat eigenen weissen Hintergrund + Border -- im
+     Action-Block stoeren die. Hier transparent + ohne Rahmen. */
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Wenn ein Lauf-Banner aktiv ist (.mg-lauf), soll der Action-Block die
+   "was-waere-die-Empfehlung"-Info zurueckhalten -- gerade beim Manuell-
+   Start im ZEITFENSTER-Blocker ergaeben Banner + "nicht giessen"-Titel
+   sonst einen visuellen Widerspruch. Loesung: Empfehlungs-Inhalt
+   dimmen, Border-Akzent neutralisieren, kleiner Hint ueber dem Banner. */
+.zk-action:has(.mg-lauf) {
+  border-left-color: var(--rahmen-subtil);
+  background: var(--bg-subtil);
+}
+.zk-action:has(.mg-lauf) .zk-action__titel,
+.zk-action:has(.mg-lauf) .zk-action__detail,
+.zk-action:has(.mg-lauf) .zk-action__body,
+.zk-action:has(.mg-lauf) .zk-action__buttons {
+  opacity: 0.45;
+}
+.zk-action:has(.mg-lauf) .zk-action__extras {
+  border-top-style: solid;
+  border-top-color: var(--rahmen-subtil);
+  position: relative;
+}
+/* T-0431/T-0432-Nachzug: der Pausier-Hinweis ist jetzt ein echtes Element
+   (`.mg-pausier-hinweis`, gerendert von ManuellesGiessen je Lauf-Pfad), kein
+   CSS-`content` mehr. Grund im Memory `fehlerpattern_zustand_in_css_content`:
+   Zustandstext in `content:` hat keinen Datenzugriff und wird still falsch.
+   Der Selektor bleibt an `.mg-lauf`, damit nur ein aktiver Lauf die Optik
+   traegt; der Text kommt aus dem TSX. */
+.zk-action:has(.mg-lauf) .zk-action__extras .mg-pausier-hinweis {
+  font-size: 10px;
+  font-family: var(--schrift-mono);
+  color: var(--text-gedaempft);
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.mg-lauf__committed { color: var(--text-gedaempft); font-size: 0.85em; }
+/* T-0411: Fremd-Lauf = eine Geschwister-Zone am selben Ventil-Kanal giesst.
+   Banner selbst neutral-informativ statt Aktions-farbig: hier gibt es
+   nichts zu bedienen (Steuerung sitzt auf der Karte der startenden Zone). */
+.giessen-container.mg-lauf--fremd {
+  border-left: 3px solid var(--text-gedaempft);
+  background: var(--bg-subtil);
+}
+.giessen-container.mg-lauf--fremd .giessen-label {
+  color: var(--text-sekundaer);
+}
+
+/* =========================================================
+   Schicht 3 · Inspect (Toggle + Inhalt)
+   ========================================================= */
+.zk-toggle {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 8px; border-top: 1px solid var(--rahmen-subtil);
+  font-family: var(--schrift-mono); font-size: 10px;
+  color: var(--text-gedaempft); cursor: pointer; letter-spacing: 0.5px;
+  background: transparent; border-left: 0; border-right: 0; border-bottom: 0;
+  width: 100%; text-align: left;
+}
+.zk-toggle__arrow { transition: transform 0.15s; }
+.zk-toggle--offen .zk-toggle__arrow { transform: rotate(180deg); }
+
+.zk-inspect {
+  display: flex; flex-direction: column; gap: 12px;
+  padding-top: 12px; border-top: 1px dashed var(--rahmen);
+}
+.zk-inspect__row { display: flex; flex-direction: column; gap: 4px; }
+.zk-inspect__lbl { font-family: var(--schrift-mono); font-size: 9.5px; color: var(--text-gedaempft); letter-spacing: 0.6px; }
+
+/* T-0201-Folge: Collapsible-Sektionen im Inspect (ML-Top-5, ML-Drift).
+   Native <details>/<summary> -- summary IST der Toggle, Inhalt wird
+   collapsed verborgen. Subtil, hellgrau. */
+.zk-inspect__details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.zk-inspect__details > summary {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  font-family: var(--schrift-mono);
+  font-size: 9.5px;
+  color: var(--text-gedaempft);
+  letter-spacing: 0.6px;
+  padding: 2px 0;
+}
+.zk-inspect__details > summary::-webkit-details-marker { display: none; }
+.zk-inspect__details > summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 4px;
+  transition: transform 0.15s;
+}
+.zk-inspect__details[open] > summary::before {
+  transform: rotate(90deg);
+}
+.zk-inspect__details > summary:hover {
+  color: var(--text-sekundaer);
+}
+/* Verschachtelte Details (z.B. innerhalb ML-Row): leicht eingerueckt
+   damit Visual Hierarchy klar bleibt. */
+.zk-inspect__details--inset {
+  margin-left: 12px;
+  margin-top: 2px;
+}
+
+/* Zeitraum-Toggle im Inspect-Chart (24h / 48h / 7d / 30d) */
+.zk-zeitraum-toggle { display: flex; gap: 4px; margin-bottom: 6px; }
+.zk-zeitraum-btn {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 4px;
+  font-family: var(--schrift-mono); font-size: 10.5px;
+  padding: 4px 10px;
+  min-width: 40px;
+  cursor: pointer;
+  color: var(--text-sekundaer);
+  line-height: 1.2;
+}
+.zk-zeitraum-btn:hover { background: var(--bg-subtil); }
+.zk-zeitraum-btn--aktiv {
+  background: var(--text-primaer);
+  color: var(--bg-karte);
+  border-color: var(--text-primaer);
+}
+
+/* Header-Badges fuer Bewaesserung-Aktiv + Sensor-Warnungen (T-0201-Folge,
+   analog V1-Header). Bewaessert pulsiert dezent damit es auf einen Blick
+   sichtbar ist. Warnungen rot (kritisch) bzw. gelb (Hinweis). */
+.zk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-family: var(--schrift-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  line-height: 1.3;
+}
+.zk-badge--bewaessert {
+  background: var(--farbe-info);
+  color: white;
+  animation: zk-pulsieren 2s ease-in-out infinite;
+}
+.zk-badge--warnung-kritisch {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+}
+.zk-badge--warnung-hinweis {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+@keyframes zk-pulsieren {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+
+/* Kompakte Chart-Legende unter dem Feuchte-Verlauf (T-0201-Folge:
+   User hatte zurueckgemeldet, dass die gestrichelten Linien und das
+   gruene Band nicht selbsterklaerend sind). */
+.zk-chart-legende {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-top: 4px;
+  font-family: var(--schrift-mono);
+  font-size: 9.5px;
+  color: var(--text-gedaempft);
+  letter-spacing: 0.3px;
+}
+.zk-chart-legende__eintrag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: help;
+}
+/* T-0410: Sensor auf anderer Messskala -- die Schwellen-Linien
+   (Min/Max/Welke) sind gegen Gardena kalibriert und gelten fuer diesen
+   Sensor NICHT. Kursiv + gepunkteter Unterstrich signalisieren "hier
+   gilt eine Einschraenkung", ohne eine weitere Farbe einzufuehren
+   (der Swatch traegt schon die Linien-Farbe des Sensors). */
+.zk-chart-legende__eintrag--fremdskala {
+  font-style: italic;
+  text-decoration: underline dotted
+    color-mix(in oklab, var(--text-gedaempft) 55%, transparent);
+  text-underline-offset: 2px;
+}
+.zk-chart-legende__swatch {
+  width: 18px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.zk-chart-legende__swatch--feuchte {
+  background: var(--chart-feuchte);
+}
+.zk-chart-legende__swatch--optimum {
+  background: color-mix(in oklab, var(--farbe-gesund) 25%, transparent);
+  border: 1px solid color-mix(in oklab, var(--farbe-gesund) 60%, transparent);
+}
+.zk-chart-legende__swatch--welke {
+  height: 0; border: 0;
+  border-top: 2px dotted var(--farbe-gefahr);
+  margin-top: 3px; margin-bottom: 3px;
+}
+.zk-chart-legende__swatch--min {
+  height: 0; border: 0;
+  border-top: 2px dashed var(--farbe-gefahr);
+  margin-top: 3px; margin-bottom: 3px;
+}
+.zk-chart-legende__swatch--max {
+  height: 0; border: 0;
+  border-top: 2px dashed var(--farbe-gesund);
+  margin-top: 3px; margin-bottom: 3px;
+}
+.zk-chart-legende__swatch--ml {
+  height: 0; border: 0;
+  border-top: 2px dashed var(--chart-ml);
+  margin-top: 3px; margin-bottom: 3px;
+}
+
+/* T-0201-Folge: Detail-Zeile mit strukturierten Werten
+   (praeventiv: 47 min · ML: 41 min · Rate 0.13 pp/min). Mono, kompakt. */
+.zk-action__detail {
+  font-family: var(--schrift-mono);
+  font-size: 11px;
+  color: var(--text-sekundaer);
+  margin-top: 2px;
+}
+.zk-action__typ {
+  color: var(--text-gedaempft);
+  font-style: italic;
+}
+/* Optionaler Sub-Body mit langem erklarung_kurz (z.B. "Sensor 60%.
+   Wohlfuehlbereich 60-75%, Welkepunkt 40%. Ohne Giessen morgen frueh
+   59%, uebermorgen 58%. 47 min jetzt -> deckt etwa 6 Tage."). Klein,
+   gedaempft, full-width. */
+.zk-action__body {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  line-height: 1.4;
+  margin-top: 4px;
+  cursor: help;
+}

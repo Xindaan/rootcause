@@ -1,0 +1,134 @@
+/* HeutePlan — heute-faellige Events mit ML-Confidence */
+
+.heute-plan {
+  /* T-0397 (F10b): kompakter, siehe KritischBand -- Overhead oben reduzieren. */
+  margin: 0 0 0.6rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: var(--karte-radius);
+}
+
+.heute-kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+
+.heute-titel {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primaer);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.heute-zaehler {
+  font-size: 0.8rem;
+  color: var(--text-sekundaer);
+}
+
+/* T-0397 (F10b-3): Kachel-Grid wie KritischBand -- mehrere Events pro Reihe,
+   loest den leeren Mittelraum auf, wrappt selbst auf schmalen Viewports. */
+.heute-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.5rem;
+}
+
+.heute-kachel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.45rem 0.65rem;
+  background: var(--bg-subtil);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 7px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: background 0.15s;
+}
+.heute-kachel:hover { background: var(--bg-karte-hover); }
+
+.hk-kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.heute-zeit {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primaer);
+  flex-shrink: 0;
+}
+
+.hk-zone {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-primaer);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hk-wert {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--chart-ml);
+  font-variant-numeric: tabular-nums;
+}
+
+.hk-grund {
+  font-size: 0.72rem;
+  color: var(--text-sekundaer);
+}
+
+.hk-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0.1rem;
+}
+
+.heute-band {
+  font-size: 0.72rem;
+  color: var(--text-gedaempft);
+}
+
+.heute-konf {
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.heute-konf-hoch {
+  background: var(--farbe-gesund-bg);
+  color: var(--farbe-gesund);
+}
+
+.heute-konf-mittel {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+
+/* T-0370: niedrige Konfidenz ist Unsicherheit, keine Gefahr -- das
+   Gefahr-Rot zog mehr Blick auf sich als echte Kritisch-Signale.
+   Neutral gedaempft statt Alarm-Farbe. */
+.heute-konf-niedrig {
+  background: var(--bg-subtil);
+  color: var(--text-sekundaer);
+}

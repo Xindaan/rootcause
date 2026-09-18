@@ -1,0 +1,662 @@
+# Pflanzen-Dashboard — Beispiel-Konfiguration
+#
+# Dies ist eine GENERISCHE Beispiel-Config: Zonen, Namen, Koordinaten und
+# Geraete-IDs sind erfunden. Sie zeigt die vollstaendige Struktur, die der
+# Loader (bewaesserung/konfig.py) versteht, damit ein eigenes Setup davon
+# abgeleitet werden kann. Credentials kommen ueber Umgebungsvariablen (.env):
+#   GARDENA_CLIENT_ID, GARDENA_CLIENT_SECRET, FYTA_ACCESS_TOKEN
+
+gardena:
+  client_id: "${GARDENA_CLIENT_ID}"
+  client_secret: "${GARDENA_CLIENT_SECRET}"
+
+# --- Standorte (Gruppierung fuer das Dashboard) ---
+# Rein informativ (Anzeige-Gruppierung); referenziert `wetter.standorte[].id`
+# fuer das Wetter, das fuer die dortigen Zonen gilt.
+
+standorte:
+  - standort_id: garten
+    name: Garten
+    wetter_standort: musterstadt
+    zonen: [garten_mikrodrip, garten_mikrodrip_b, wiese_sprinkler, garten_sprinkler, beet_tropf]
+  - standort_id: suedbalkon
+    name: Suedbalkon
+    wetter_standort: beispielstadt
+    zonen: [topf_1, topf_3, topf_9]
+  - standort_id: nordbalkon
+    name: Nordbalkon
+    wetter_standort: beispielstadt
+    zonen: [topf_4, topf_8]
+  - standort_id: wohnung
+    name: Wohnung
+    wetter_standort: beispielstadt
+    zonen: [topf_2, topf_5, topf_6, topf_7]
+
+# --- Zonen (Gardena-Hardware + FYTA-Topfpflanzen) ---
+#
+# Zwei Dual-Water-Control-Geraete (DSWC) mit je 2 Kanaelen:
+#   DSWC 1 (11111111-...): Kanal 1 = wiese_sprinkler, Kanal 2 = Mikrodrip-
+#     Geschwister garten_mikrodrip + garten_mikrodrip_b (serieller Strang,
+#     gleicher Kanal + gleiches Geraet -- ausdruecklich erlaubt).
+#   DSWC 2 (22222222-...): Kanal 1 = garten_sprinkler, Kanal 2 = beet_tropf.
+# Zwei Zonen am selben Kanal BRAUCHEN eine explizite `ventil_geraet_id`,
+# sonst lehnt der Loader die Config ab (Schutz gegen Phantom-Events bei
+# Multi-DSWC-Setups, siehe `_parse_zonen`-Validator in konfig.py).
+
+zonen:
+  # Mikrodrip-Geschwister: serieller Strang, ein Ventil, zwei Zonen.
+  # auto_loop_opt_in: zusaetzlich zum globalen `ventilsteuerung_aktiv`
+  # muss jede Zone hier einzeln zustimmen (Sicherheits-Gate).
+  # pre_soak_modus "immer": kurzer Vorlauf-Puls bricht Substrat-
+  # Hydrophobie, bevor die Hauptdosis kommt.
+  - zone_id: garten_mikrodrip
+    name: Garten Mikrodrip A
+    modus: automatik
+    ventil_kanal: 2
+    ventil_name: Mikrodrip          # Kanalname wie in der Gardena-App
+    ventil_geraet_id: "11111111-1111-1111-1111-111111111111"
+    auto_loop_opt_in: true
+    pre_soak_modus: immer
+    pre_soak_min: 5
+    pre_soak_pause_min: 25
+    feuchte_schwelle_min: 60        # kalibriertes Arbeitsband (Prozent)
+    feuchte_schwelle_max: 75
+    feuchte_kritisch: 50
+    optimum_feuchte_min: 60         # Pflanzen-Optimum, zieht Schwellen-Vorschlag hoch
+    optimum_feuchte_max: 75
+    welkepunkt: 40.0                # manueller Override statt Auto-Aufloesung
+    detektor_fenster_ende_min: 180  # Mikrodrip reagiert nur mit Verzoegerung
+    ist_topf: true
+    ist_indoor: false
+    max_dauer_sekunden: 5400
+    min_pause_minuten: 120
+    tages_budget_sekunden: 18000
+    flaeche_m2: 1.5
+    anteil_kanal: 0.4                # Anteil der Tropfer dieser Zone am Kanal
+    bewaesserungs_strategie: haeufig_klein   # viele kurze Dosen (Topf, kontinuierlicher Bedarf)
+
+  - zone_id: garten_mikrodrip_b
+    name: Garten Mikrodrip B
+    modus: automatik
+    ventil_kanal: 2
+    ventil_geraet_id: "11111111-1111-1111-1111-111111111111"
+    auto_loop_opt_in: true
+    pre_soak_modus: immer
+    pre_soak_min: 5
+    pre_soak_pause_min: 25
+    feuchte_schwelle_min: 60
+    feuchte_schwelle_max: 75
+    feuchte_kritisch: 50
+    optimum_feuchte_min: 60
+    optimum_feuchte_max: 75
+    welkepunkt: 40.0
+    detektor_fenster_ende_min: 180
+    ist_topf: true
+    ist_indoor: false
+    max_dauer_sekunden: 5400
+    min_pause_minuten: 120
+    tages_budget_sekunden: 18000
+    flaeche_m2: 1.2
+    anteil_kanal: 0.6
+    bewaesserungs_strategie: haeufig_klein
+
+  # Zwei Sprinkler-Zonen an zwei Geraeten, gleiche Kanalnummer (Multi-DSWC).
+  - zone_id: wiese_sprinkler
+    name: Wiese Sprinkler
+    modus: automatik
+    ventil_kanal: 1
+    ventil_geraet_id: "11111111-1111-1111-1111-111111111111"
+    # auto_loop_opt_in default = false: bewusstes Opt-out-Beispiel, bleibt
+    # im Shadow-Modus (nur Logging) auch bei globalem `ventilsteuerung_aktiv: true`.
+    optimum_feuchte_min: 40
+    optimum_feuchte_max: 60
+    feuchte_schwelle_min: 30
+    feuchte_schwelle_max: 50
+    feuchte_kritisch: 15
+    versickerungs_karenz_stunden: 6  # Sandboden: Nachsickern braucht laenger als der Default
+    welkepunkt: 32.0
+    sicherheits_tage: 1.5            # groessere Reserve (Etablierungsphase)
+    delta_pp_pro_minute: 0.17        # kalibrierte Wirkungsrate statt generischem Default
+    bewaesserungs_strategie: selten_gross   # wenige, tiefe Dosen -> Tiefenwurzeln
+    ist_topf: false
+    ist_indoor: false
+    max_dauer_sekunden: 1800
+    min_pause_minuten: 180
+    tages_budget_sekunden: 3600
+    bevorzugte_zeiten: ["05:00-07:00", "19:00-21:00"]
+    flaeche_m2: 25.0
+    # Optional: Giessfenster aus der Verdunstung statt fester Uhrzeiten.
+    # Ohne Block (oder modus: aus) gilt nur `bevorzugte_zeiten`. `schatten`
+    # wertet nur aus und loggt, `aktiv` ersetzt bevorzugte_zeiten durch die
+    # Klammer und schneidet darin nach ET0 zu. zyklus_min = reale Zyklusdauer.
+    # giessfenster_et0:
+    #   modus: schatten
+    #   klammer: ["05:00-17:00"]
+    #   zyklus_min: 90
+    #   trocknung_fenster_h: 6
+    #   trocknung_min_mm: 0.3     # ET0 nach Zyklusende: Laub trocknet ab
+    #   sonne_max_mm: 0.6         # ET0 waehrend des Zyklus: keine pralle Sonne
+    anteil_kanal: 1.0
+    # Saisonales Feuchte-Regime: in der Sommer-Trockenphase gilt ein
+    # strengeres Zielband (foerdert Tiefenwurzeln); ausserhalb gelten
+    # die Zonen-Defaults oben.
+    feuchte_regime:
+      - name: sommer_trocken
+        von_mm_dd: "07-01"
+        bis_mm_dd: "09-15"
+        feuchte_schwelle_min: 20.0
+        feuchte_kritisch: 10.0
+        optimum_min: 20.0
+        optimum_max: 35.0
+        grund: "Bewusst trockenere Sommerphase, foerdert Tiefenwurzeln"
+
+  # Cycle-and-Soak-Beispiel: auf Sandboden laeuft eine lange Sprinkler-Dose am
+  # Stueck oberflaechlich ab. `haupt_pulse` TEILT die berechnete Hauptdose in
+  # gleich lange Pulse auf (hier 3) und legt `haupt_puls_pause_min` Einsickerzeit
+  # dazwischen -- die Gesamt-Wassermenge bleibt unveraendert, sie wird nur
+  # anders verteilt. Default 1/0 waere ein Hauptlauf am Stueck.
+  - zone_id: garten_sprinkler
+    name: Garten Sprinkler
+    modus: automatik
+    ventil_kanal: 1
+    ventil_geraet_id: "22222222-2222-2222-2222-222222222222"
+    pre_soak_modus: immer
+    pre_soak_min: 5
+    pre_soak_pause_min: 25
+    haupt_pulse: 3
+    haupt_puls_pause_min: 21
+    feuchte_schwelle_min: 30
+    feuchte_schwelle_max: 55
+    feuchte_kritisch: 15
+    bewaesserungs_strategie: konstant_niedrig
+    ist_topf: false
+    ist_indoor: false
+    max_dauer_sekunden: 1800
+    min_pause_minuten: 180
+    tages_budget_sekunden: 3600
+    bevorzugte_zeiten: ["05:00-07:00", "19:00-21:00"]
+    flaeche_m2: 30.0
+    anteil_kanal: 1.0
+
+  - zone_id: beet_tropf
+    name: Beet Tropfbewaesserung
+    modus: automatik
+    ventil_kanal: 2
+    ventil_geraet_id: "22222222-2222-2222-2222-222222222222"
+    auto_loop_opt_in: true
+    pre_soak_modus: immer
+    pre_soak_min: 5
+    pre_soak_pause_min: 25
+    feuchte_schwelle_min: 35
+    feuchte_schwelle_max: 55
+    feuchte_kritisch: 20
+    optimum_feuchte_min: 38
+    optimum_feuchte_max: 50
+    delta_pp_pro_minute: 0.33        # kalibrierte Wirkungsrate fuer diesen Tropf-Kanal
+    bewaesserungs_strategie: korridor   # Zielband halten (frisch gepflanztes Gehoelz, Anwachsphase)
+    ist_topf: false
+    ist_indoor: false
+    max_dauer_sekunden: 2700
+    min_pause_minuten: 120
+    tages_budget_sekunden: 5400
+    flaeche_m2: 8.0
+    anteil_kanal: 1.0
+
+  # --- FYTA-Topfpflanzen (9 generische Sensoren, versch. Strategie je
+  # nach botanischem Typ: SELTEN_GROSS fuer Trocken-Nass-Wechsler /
+  # Phytophthora-anfaellige Arten, HAEUFIG_KLEIN fuer konstant-feucht-
+  # liebende, KONSTANT_NIEDRIG fuer sukkulent-tendierte) ---
+  - zone_id: topf_1
+    name: Zitruspflanze (Suedbalkon)
+    modus: automatik
+    feuchte_schwelle_min: 35
+    feuchte_schwelle_max: 60
+    feuchte_kritisch: 20
+    bewaesserungs_strategie: selten_gross
+    ist_topf: true
+    ist_indoor: false
+    max_dauer_sekunden: 900
+    min_pause_minuten: 240
+    tages_budget_sekunden: 1800
+    # AquaBloom: Auto-Logging fuer eine nicht-smarte Solar-Pumpe (Timer-
+    # Bewaesserung ohne Ventil-Feedback), Werte spiegeln die physische
+    # Pumpen-Einstellung.
+    aquabloom_pumpen_dauer_sekunden: 900
+    aquabloom_pumpen_intervall_stunden: 12
+    aquabloom_anker_zeitstempel: "2026-05-01T08:00:00"
+    aquabloom_aktiv_ab: "05-01"
+    aquabloom_aktiv_bis: "10-01"
+    aquabloom_tropfer_anzahl: 2
+    aquabloom_tropfer_liter_pro_stunde: 2.0
+    logging_einheit: ml              # manueller Logging-Button zeigt ml- statt Sekunden-Presets
+    logging_optionen_ml: [100, 250, 500, 1000]
+
+  - zone_id: topf_2
+    name: Zitruspflanze (Wohnung)
+    modus: automatik
+    feuchte_schwelle_min: 35
+    feuchte_schwelle_max: 60
+    feuchte_kritisch: 20
+    bewaesserungs_strategie: selten_gross
+    ist_topf: true
+    ist_indoor: true
+    max_dauer_sekunden: 600
+    min_pause_minuten: 480
+    tages_budget_sekunden: 1200
+
+  - zone_id: topf_3
+    name: Mandevilla (Suedbalkon)
+    modus: automatik
+    feuchte_schwelle_min: 40
+    feuchte_schwelle_max: 65
+    feuchte_kritisch: 22
+    bewaesserungs_strategie: selten_gross
+    ist_topf: true
+    ist_indoor: false
+    max_dauer_sekunden: 600
+    min_pause_minuten: 240
+    tages_budget_sekunden: 1200
+
+  - zone_id: topf_4
+    name: Mandevilla gross (Nordbalkon)
+    modus: automatik
+    feuchte_schwelle_min: 40
+    feuchte_schwelle_max: 65
+    feuchte_kritisch: 22
+    bewaesserungs_strategie: selten_gross
+    ist_topf: true
+    ist_indoor: false
+    max_dauer_sekunden: 900
+    min_pause_minuten: 240
+    tages_budget_sekunden: 1800
+
+  - zone_id: topf_5
+    name: Avocado (Wohnung)
+    modus: automatik
+    feuchte_schwelle_min: 40
+    feuchte_schwelle_max: 65
+    feuchte_kritisch: 25
+    bewaesserungs_strategie: selten_gross    # Phytophthora-Schutz: Trockenphasen erwuenscht
+    ist_topf: true
+    ist_indoor: true
+    max_dauer_sekunden: 600
+    min_pause_minuten: 360
+    tages_budget_sekunden: 1200
+
+  - zone_id: topf_6
+    name: Fuchsie (Wohnung)
+    modus: automatik
+    feuchte_schwelle_min: 45
+    feuchte_schwelle_max: 70
+    feuchte_kritisch: 25
+    bewaesserungs_strategie: haeufig_klein
+    ist_topf: true
+    ist_indoor: true
+    max_dauer_sekunden: 300
+    min_pause_minuten: 180
+    tages_budget_sekunden: 900
+
+  - zone_id: topf_7
+    name: Kroton (Wohnung)
+    modus: automatik
+    feuchte_schwelle_min: 45
+    feuchte_schwelle_max: 70
+    feuchte_kritisch: 25
+    bewaesserungs_strategie: haeufig_klein
+    ist_topf: true
+    ist_indoor: true
+    max_dauer_sekunden: 300
+    min_pause_minuten: 180
+    tages_budget_sekunden: 900
+
+  - zone_id: topf_8
+    name: Pilea (Nordbalkon)
+    modus: automatik
+    feuchte_schwelle_min: 35
+    feuchte_schwelle_max: 55
+    feuchte_kritisch: 18
+    bewaesserungs_strategie: konstant_niedrig   # sukkulent-tendiert: Trigger erst nahe Welkepunkt
+    ist_topf: true
+    ist_indoor: false
+    max_dauer_sekunden: 300
+    min_pause_minuten: 360
+    tages_budget_sekunden: 600
+
+  - zone_id: topf_9
+    name: Mischkasten (Suedbalkon)
+    modus: automatik
+    feuchte_schwelle_min: 40
+    feuchte_schwelle_max: 65
+    feuchte_kritisch: 22
+    bewaesserungs_strategie: haeufig_klein
+    ist_topf: true
+    ist_indoor: false
+    max_dauer_sekunden: 900
+    min_pause_minuten: 240
+    tages_budget_sekunden: 1800
+    aquabloom_pumpen_dauer_sekunden: 900
+    aquabloom_pumpen_intervall_stunden: 12
+    aquabloom_anker_zeitstempel: "2026-05-01T08:00:00"
+    aquabloom_aktiv_ab: "05-01"
+    aquabloom_aktiv_bis: "10-01"
+    aquabloom_tropfer_anzahl: 2
+    aquabloom_tropfer_liter_pro_stunde: 2.0
+    logging_einheit: ml
+    logging_optionen_ml: [100, 250, 500, 1000]
+
+# --- Wetter (Open-Meteo, mehrere Standorte) ---
+
+wetter:
+  standorte:
+    - id: musterstadt
+      breite: 52.5200
+      laenge: 13.4050
+    - id: beispielstadt
+      breite: 52.5200
+      laenge: 13.4050
+  cache_minuten: 30
+  regen_schwelle_mm: 2.0
+  # Konvektions-/Starkregen-Guard: blockt einen Lauf, wenn die MAX-
+  # Regenwahrscheinlichkeit der naechsten 6h >= dieser %-Schwelle liegt,
+  # auch bei niedriger mm-Prognose.
+  regen_wahrscheinlichkeit_schwelle_prozent: 80.0
+  # Rueckwaertskompatibel (Single-Standort-Fallback)
+  breite: 52.5200
+  laenge: 13.4050
+
+# --- FYTA (Bluetooth-Bodenfeuchtesensoren) ---
+
+fyta:
+  api_url: "https://web.fyta.de/api"
+  poll_intervall_sekunden: 900
+  pflanzen:
+    - {fyta_id: 100001, zone_id: topf_1, name: Zitruspflanze}
+    - {fyta_id: 100002, zone_id: topf_2, name: "Zitruspflanze II"}
+    - {fyta_id: 100003, zone_id: topf_3, name: Mandevilla}
+    - {fyta_id: 100004, zone_id: topf_4, name: "Mandevilla gross"}
+    - {fyta_id: 100005, zone_id: topf_5, name: Avocado}
+    - {fyta_id: 100006, zone_id: topf_6, name: Fuchsie}
+    - {fyta_id: 100007, zone_id: topf_7, name: Kroton}
+    - {fyta_id: 100008, zone_id: topf_8, name: Pilea}
+    - {fyta_id: 100009, zone_id: topf_9, name: Mischkasten}
+
+# --- Balkon-Metadaten (ML-relevant: Regen erreicht ueberdachte Balkone nur
+# bei bestimmten Windrichtungen) ---
+
+balkon_ausrichtung:
+  suedbalkon:
+    himmelsrichtung: sued
+    regen_wind: [sued, ost, west]
+    sonnig: true
+  nordbalkon:
+    himmelsrichtung: nord
+    regen_wind: [nord, ost, west]
+    sonnig: false
+
+# --- Ventilsteuerung (Opt-In) ---
+# true = Ventile werden tatsaechlich angesteuert.
+# false = nur Logging, wann/wie lange bewaessert wuerde (Shadow-Modus).
+# Greift zusaetzlich NUR auf Zonen mit `auto_loop_opt_in: true` UND
+# `modus: automatik` -- ein globales true allein schaltet nichts scharf.
+ventilsteuerung_aktiv: true
+
+# --- Hahn-Cluster + Durchfluss-Budget ---
+# Mehrere Zonen koennen sich einen Wasserhahn/Anschluss teilen. Bei
+# parallelem Lauf summieren sich `verbrauch_lpm`-Werte; die Summe darf
+# `max_durchfluss_lpm` nicht ueberschreiten (sonst Reject HAHN_BELEGT).
+# `exklusiv: true` pro Zone verbietet zusaetzlich jeden Parallellauf mit
+# anderen Cluster-Zonen (fuer druckabhaengige Sprinkler).
+hahn_cluster:
+  - cluster_id: garten-haupthahn
+    max_durchfluss_lpm: 10.0
+
+# --- Wasser-Bilanz ---
+# Durchflussraten pro Kanal, gemessen am tatsaechlichen Ausgang.
+# `geraet_kanal_liter_pro_minute` gewinnt vor dem globalen Fallback
+# `kanal_liter_pro_minute`, damit zwei Geraete mit derselben Kanalnummer
+# nicht versehentlich dieselbe Rate erben (Multi-DSWC-Faelle).
+# `manuell_liter_pro_minute` ist der Default fuer manuelle Schlauch-
+# Bewaesserung ohne explizite Liter-Angabe.
+bilanz:
+  kanal_liter_pro_minute:
+    1: 6.0
+    2: 1.87
+  geraet_kanal_liter_pro_minute:
+    "11111111-1111-1111-1111-111111111111":
+      1: 6.0
+      2: 1.87
+    "22222222-2222-2222-2222-222222222222":
+      1: 6.0
+      2: 1.4
+  manuell_liter_pro_minute: 10.0
+
+# --- ET0-adaptive Feuchte-Schwellen ---
+# Bei Hitze-Prognose (hohe Evapotranspiration) wird feuchte_schwelle_min
+# leicht angehoben, damit fruher gegossen wird, bevor die Pflanze in
+# Trockenstress rutscht:
+#   effektiv = basis + k * max(0, ET0_24h - median_et0_mm_pro_tag)
+#   gedeckelt auf basis + anhebung_max (Prozentpunkte)
+schwellen_adaption:
+  aktiv: true
+  k: 1.0
+  median_et0_mm_pro_tag: 2.5
+  anhebung_max: 10.0
+
+# --- ML-Ausschluss-Fenster ---
+# Zeitraeume pro Zone, die beim Training + Baseline uebersprungen werden
+# (Sensor-Umzug/Austausch/Kalibrierung/bekannte Datenluecken). Inklusive
+# Grenzen (von/bis). `zweck` unterscheidet explizit "sensor_kalibrierung"
+# (Werte unzuverlaessig) von "event_ignore" (Sensor ok, nur Kanal-Events
+# sollen ignoriert werden); ohne explizites `zweck` wird aus
+# `events_auto_ignorieren` inferiert.
+ml_ausschluss_fenster:
+  - zone_id: wiese_sprinkler
+    von: 2026-04-15T16:00:00
+    bis: 2026-04-15T18:00:00
+    grund: "Sensor physisch versetzt + eingeschlemmt (neuer Standort, kurzzeitig nicht repraesentativ)"
+  - zone_id: garten_sprinkler
+    von: 2026-04-20T08:00:00
+    bis: 2026-07-31T20:00:00
+    events_auto_ignorieren: true
+    grund: "Kanal wird temporaer fuer eine fremde Flaeche mitgenutzt (Gras-Aussaat-Beregnung ueber denselben Kanal). Positiv-Opt-in im Frontend hebt echte Zonen-Laeufe wieder in die Wertung."
+
+speicher:
+  db_pfad: "./daten/bewaesserung.db"
+
+# --- Backup ---
+# Taeglicher DB-Snapshot via native SQLite-Backup-API.
+# Layout: <verzeichnis>/taeglich/ (letzte N Tage), <verzeichnis>/monatlich/
+# (erster Snapshot je Monat, dauerhaft).
+backup:
+  aktiv: true
+  intervall_stunden: 24
+  verzeichnis: "./daten/backup"
+  retention_taeglich_tage: 14
+  monatlich_aktiv: true
+  max_dateien: 200
+  # Optionale Spiegelung in ein Cloud-Verzeichnis (z.B. iCloud/Dropbox).
+  # Tilde wird expandiert; weglassen/null = aus.
+  # spiegel_verzeichnis: "~/Backups/pflanzen-dashboard"
+
+# --- Wochen-Report ---
+# Woechentliche Zusammenfassung (Bewaesserungen, Regen, ET0, ML-Guete,
+# Warnungen) per Benachrichtigung. `empfaenger` leer = Fallback auf den
+# ersten Zone-Benachrichtigungs-Empfaenger.
+wochen_report:
+  aktiv: true
+  empfaenger: ""
+  tag_der_woche: 6         # 0=Mo, 6=So
+  stunde: 20
+
+# --- Watchdog (Push bei System-Anomalien) ---
+# Bewusst Opt-In: Push ist fuer Abwesenheits-/Vergesslichkeits-Faelle
+# gedacht, nicht fuer taegliche Nutzer mit eigenem App-Check.
+watchdog:
+  aktiv: true
+  empfaenger: ""               # leer -> faellt auf Umgebungsvariable zurueck
+  intervall_minuten: 30
+  throttle_stunden: 24         # max. 1 Push pro Trigger-Klasse + Zone / 24h
+  akut_in_folge_tage: 3
+  husqvarna_max_alter_minuten: 90
+  # Optional: Meldung, wenn eine der Zonen laenger als schwelle_stunden auf
+  # den geteilten Haupthahn wartet. Netz, kein Regler.
+  # hahn_wache:
+  #   aktiv: true
+  #   schwelle_stunden: 6
+  #   zonen: ["garten_sprinkler", "garten_mikrodrip"]
+
+endpoint_health:
+  aktiv: true
+  intervall_stunden: 24
+
+# --- Automatische Feldkapazitaets-/Welkepunkt-Erkennung ---
+# Scannt periodisch die letzten `rueckblick_tage` nach Regen-Peaks
+# (> regen_min_mm in 24h) und leitet daraus Feldkapazitaets-/Welkepunkt-
+# Kandidaten je Zone ab (Quelle fuer `optimum_feuchte_*`-Verfeinerung).
+kalibrierung:
+  aktiv: true
+  intervall_stunden: 1
+  rueckblick_tage: 60
+  regen_min_mm: 10.0
+  plateau_max_delta: 3.0
+  welkepunkt_min_tage: 10
+  saison_monate: [5, 6, 7, 8, 9]
+
+# --- Skalen-Mapping-Fit ---
+# Fittet pro Zone + Sensor-Quelle eine lineare Skalen-Transformation gegen
+# den Referenz-Sensor, sofern `calibration_pair_quellen` an der Zone
+# gesetzt ist. `min_korrelation` schuetzt vor Rausch-Fits bei
+# unkorrelierten Sensoren (verschiedene Mikro-Standorte).
+ml_skalen_mapping:
+  aktiv: true
+  intervall_stunden: 24
+  min_obs: 50
+  min_spannweite_pp: 20.0
+  max_residual_pp: 10.0
+  min_korrelation: 0.5
+
+# --- Physik-Trocknungs-Diagnose ---
+# Fittet pro Zone die Trocknungs-Konstante `k_basis_pro_h` aus
+# historischen Trockenphasen und liefert eine deterministische Prognose
+# neben der ML-Prognose. Read-only: greift nicht in die Entscheidung ein.
+ml_physik_diagnose:
+  aktiv: true
+  intervall_stunden: 24
+  min_phasen: 3
+  min_phasen_dauer_h: 6
+  max_phasen_dauer_h: 72
+  default_tau_stunden: 48.0
+  et0_basis_mm_pro_h: 0.1042
+  max_regen_im_fenster_mm: 1.0
+
+# --- Plateau-Wirkungs-Fit ---
+# Fittet pro Zone ein Saettigungsmodell (wmax/r0) aus echten
+# Bewaesserungs-Laeufen. `adoptieren: false` = nur Beobachtung, die
+# Engine nutzt weiterhin die Konfig-Werte `wirkung_max_pp`/
+# `wirkungsrate_initial`.
+ml_wirkung_fit:
+  aktiv: true
+  adoptieren: false
+  intervall_stunden: 24
+  fenster_tage: 60
+  min_n: 30
+  min_dauer_spread: 3.0
+  min_r2: 0.5
+  max_mse_pp2: 9.0
+  konsens_toleranz: 0.35
+  max_fit_alter_tage: 30
+
+# --- State-Space-Shadow-Forecaster ---
+# Physik-Decay + Regen-Input + Giess-Puls-Input als Forward-Trajektorie.
+# Shadow-only: aktiv=true loggt nur zusaetzliche Prognose-Spalten,
+# beeinflusst nicht die Entscheidung/Dosierung.
+ml_state_space:
+  aktiv: true
+  ramp_stunden: 1.5           # Sensor-Verzoegerung nach einem Giess-Puls
+  puls_lookback_stunden: 3.0
+  regen_faktor_pp_pro_mm: 4.0
+
+# --- Prognose-Routing pro Zone (Shadow-only) ---
+# Waehlt pro Zone, ob im Audit-Log die ML- oder die State-Space-Prognose
+# als Referenz gefuehrt wird (z.B. datenarme Zonen -> Physik-Modell).
+ml_forecast_routing:
+  aktiv: true
+  default_quelle: ml
+  zonen:
+    wiese_sprinkler: statespace
+    garten_mikrodrip: ml
+    garten_mikrodrip_b: ml
+    beet_tropf: ml
+
+ml:
+  # --- Auto-Retrain (woechentliches ML-Training im Service) ---
+  # Neues Modell wird pro Horizont nur aktiviert, wenn
+  # mae_neu < gate_faktor * mae_alt (Deploy-Gate).
+  retrain:
+    aktiv: true
+    intervall_tage: 3
+    trainings_fenster_tage: 60
+    gate_faktor: 1.5
+    folds: 3
+    quantile: true
+    monotone_constraints: false
+    ausgabe_pfad: ""           # leer -> backend/daten/ml
+    tmp_suffix: "_tmp"
+    archiv_suffix: "_archiv"
+    start_verzoegerung_minuten: 5
+    # Features im eigenen Prozess bauen, damit der Event-Loop frei bleibt.
+    # feature_bau_subprozess: true
+    # Cluster-Architektur: `pro_zone` = eigenes Modell-Set pro Zone unter
+    # backend/daten/ml/feuchte/<cluster_id>/ (cluster_id default = zone_id,
+    # per ZonenKonfig.cluster_id ueberschreibbar). `global` = ein Modell
+    # fuer alle Zonen (Altverhalten).
+    cluster_strategie: pro_zone
+    # Cluster unter dieser Zeilenzahl werden mit Status
+    # `unzureichend_daten` uebersprungen statt trainiert.
+    mindest_zeilen_pro_cluster: 800
+    # Per-Cluster-Gate-Override (leer = globaler gate_faktor gilt fuer alle).
+    gate_faktor_pro_cluster: {}
+
+  # --- Bewaesserungs-Response-Modell ---
+  # Ersetzt die feste Sekunden-pro-Prozentpunkt-Heuristik durch ein
+  # ML-Inverses-Modell pro Zone (Ziel-Delta, Vorwert, Wetter -> Dauer).
+  # `aktiv` schaltet nur das Shadow-Logging ein; `wirksam` schaltet die
+  # ML-Empfehlung produktiv (erst nach hinreichend bewerteten Vorschlaegen
+  # mit besserem MAE als die Heuristik).
+  bewaesserungs_response:
+    aktiv: true
+    # feature_bau_subprozess: true
+    wirksam: false
+    min_events: 3
+    retrain_intervall_tage: 14
+    retrain_event_schwelle: 5
+    gate_mae_faktor: 0.5
+    cluster_gap_min: 60
+    ausgabe_pfad: ""           # leer -> backend/daten/ml/response
+
+# --- Klartextnamen pro Sensor-Geraet-ID ---
+# FYTA-Sensoren werden automatisch aus `fyta.pflanzen[]` vor-belegt
+# (Schluessel `fyta_<fyta_id>`); manuelle Eintraege hier ueberschreiben.
+# Gardena-Sensoren (UUID) muessen hier eingetragen werden, sonst zeigt
+# das Frontend nur die gekuerzte ID.
+sensor_namen:
+  "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa": "Garten Mikrodrip A (Gardena)"
+  "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb": "Garten Mikrodrip B (Gardena)"
+  "cccccccc-cccc-cccc-cccc-cccccccccccc": "Wiese Sprinkler (Gardena)"
+  "dddddddd-dddd-dddd-dddd-dddddddddddd": "Garten Sprinkler (Gardena)"
+  "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee": "Beet Tropfbewaesserung (Gardena)"
+
+# Optional: randomisierter Dosis-Versuch an EINEM Ventil (faehrt echtes
+# Wasser!). Misst, ab welcher Dauer der Sensor reagiert. Fehlt der Block,
+# ist das ein exakter No-op.
+# dosis_test:
+#   aktiv: false
+#   ventil_geraet_id: "11111111-1111-1111-1111-111111111111"   # Ventil von garten_mikrodrip
+#   ventil_kanal: 2
+#   stufen_gesamt_min: [45, 60, 75]
+#   wiederholungen: 8
+#   seed: 20260812
+#   bis: "2026-09-30"
+
+logging:
+  level: "INFO"

@@ -1,0 +1,108 @@
+/* EntscheidungsLog — einklappbare Entscheidungstabelle */
+
+.entscheidungs-log {
+  margin-top: 32px;
+}
+
+.log-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-sekundaer);
+  transition: background 0.15s ease;
+}
+
+.log-toggle:hover {
+  background: var(--bg-karte-hover);
+}
+
+.log-toggle-text {
+  flex: 1;
+  text-align: left;
+}
+
+.log-toggle-count {
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.log-toggle-pfeil {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.log-toggle-pfeil.offen {
+  transform: rotate(180deg);
+}
+
+.log-tabelle-container {
+  margin-top: 8px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.log-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.log-tabelle th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--rahmen-subtil);
+  font-weight: 600;
+}
+
+.log-tabelle td {
+  padding: 8px 12px;
+  color: var(--text-sekundaer);
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+
+.log-tabelle tr:last-child td {
+  border-bottom: none;
+}
+
+.log-tabelle tr.ja .icon {
+  color: var(--farbe-gesund);
+}
+
+.log-tabelle tr.nein .icon {
+  color: var(--text-gedaempft);
+}
+
+.log-tabelle .zeit {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.log-tabelle .dauer {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.log-tabelle .grund {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

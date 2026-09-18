@@ -1,0 +1,197 @@
+/* T-0335: Giess-Historie pro Zone. Stil an HistorieTab/TagEvents angelehnt. */
+
+.giess-historie {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  /* T-0335: Breite eng am Zeileninhalt halten -- auf grossen Screens spreizten
+     die Lauf-Zeilen sonst ueber die volle Breite (viel Leerraum, User-Feedback
+     "soviel dead space"). Inhalt ~474px (bambus) bis ~545px (laengste Zone
+     "Bambuswald Yogaraum") + Puffer. Liste bleibt linksbuendig. */
+  max-width: 620px;
+}
+
+/* "Alle Zonen": Zeilen koennen mehrere Zonen tragen (serieller Strang, z.B.
+   "Bambuswald + Bambuswald Yogaraum" = ~293px Zone-Spalte). Die laengste Zeile
+   braucht ~669px Inhalt -> 800px Karte (gemessen, ~70px Puffer) verhindert den
+   Umbruch. Einzelzonen-Ansicht bleibt schmal (Dead-Space-Feedback). */
+.giess-historie--alle {
+  max-width: 800px;
+}
+
+.gh-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: flex-end;
+  padding: 12px 16px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  box-shadow: var(--karte-schatten);
+}
+
+.gh-filter-gruppe {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gh-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+}
+
+.gh-select {
+  padding: 6px 10px;
+  border: 1px solid var(--rahmen);
+  border-radius: 6px;
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+  font-size: 14px;
+}
+
+.gh-preset-leiste {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--bg-subtil);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.gh-preset-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-sekundaer);
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.gh-preset-btn.aktiv {
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+  box-shadow: var(--karte-schatten);
+}
+
+.gh-status, .gh-leer {
+  color: var(--text-gedaempft);
+  padding: 16px;
+  text-align: center;
+}
+
+.gh-fehler {
+  color: var(--farbe-gefahr);
+  padding: 12px 16px;
+}
+
+.gh-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gh-lauf {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: var(--karte-schatten);
+}
+
+.gh-lauf--ignoriert {
+  opacity: 0.55;
+  background: var(--bg-subtil);
+}
+
+.gh-kopf {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.gh-zeit {
+  font-weight: 600;
+  color: var(--text-primaer);
+  min-width: 132px;
+}
+
+.gh-zone {
+  font-weight: 600;
+  color: var(--text-sekundaer);
+  min-width: 120px;
+}
+
+.gh-methode {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--rahmen);
+  color: var(--text-sekundaer);
+}
+
+.gh-methode--pre_soak {
+  background: color-mix(in srgb, var(--farbe-vorschlag) 16%, transparent);
+  border-color: var(--farbe-vorschlag);
+  color: var(--farbe-vorschlag);
+}
+
+.gh-dauer {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primaer);
+  font-weight: 600;
+}
+
+.gh-ausloeser {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--rahmen-subtil);
+  color: var(--text-sekundaer);
+}
+
+.gh-ausloeser--automatik {
+  background: color-mix(in srgb, var(--farbe-gesund) 16%, transparent);
+  border-color: var(--farbe-gesund);
+  color: var(--farbe-gesund-text); /* T-0397 (F17): AA-Kontrast auf Tint */
+}
+
+.gh-ausloeser--manuell {
+  background: color-mix(in srgb, var(--farbe-info) 14%, transparent);
+  border-color: var(--farbe-info);
+  color: var(--farbe-info);
+}
+
+.gh-laeuft {
+  font-size: 12px;
+  color: var(--farbe-info);
+  font-weight: 600;
+}
+
+.gh-nichtgezaehlt {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  font-style: italic;
+}
+
+.gh-phasen {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--text-sekundaer);
+}
+
+.gh-liter {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-gedaempft);
+}

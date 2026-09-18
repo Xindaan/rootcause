@@ -1,0 +1,72 @@
+/* T-0094: Unbekannt-Event-Banner in der Zonen-Karte. */
+
+.ueb-banner {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  background: var(--farbe-warnung-bg);
+  border-left: 4px solid var(--farbe-warnung);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ueb-frage {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ueb-icon {
+  font-size: 1rem;
+}
+
+.ueb-counter {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-sekundaer);
+}
+
+.ueb-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ueb-buttons button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--rahmen);
+  background: var(--bg-karte);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.ueb-buttons button:hover:not(:disabled) {
+  background: var(--bg-karte-hover);
+}
+
+.ueb-buttons button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+/* T-0277: Bulk-Zeile ("alle N") optisch sekundaer -- kleiner + gedaempft,
+   damit der Default-Klick der Einzel-Klassifikation gilt, nicht dem
+   versehentlichen Massen-Flip. */
+.ueb-buttons-bulk {
+  margin-top: 0.25rem;
+}
+.ueb-buttons-bulk button {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  opacity: 0.8;
+}
+
+.ueb-fehler {
+  color: var(--farbe-fehler);
+  font-size: 0.75rem;
+}
