@@ -1,0 +1,22 @@
+/* Globaler Reset + Body-Styles — ersetzt index.css */
+
+@import './design-tokens.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--schrift);
+  background: var(--bg-seite);
+  color: var(--text-primaer);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+#root {
+  min-height: 100vh;
+}

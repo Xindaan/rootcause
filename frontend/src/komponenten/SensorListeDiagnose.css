@@ -1,0 +1,51 @@
+/* SensorListeDiagnose — T-0179c Folge. */
+
+.sld-container {
+  margin: 0.5rem 0;
+  padding: 0.3rem 0;
+  border-top: 1px solid var(--rahmen-subtil);
+}
+
+.sld-toggle {
+  background: none;
+  border: none;
+  padding: 0.15rem 0.25rem;
+  color: var(--text-sekundaer);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sld-toggle:hover {
+  color: var(--text-primaer);
+}
+
+.sld-tabelle {
+  width: 100%;
+  margin-top: 0.4rem;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.sld-tabelle th {
+  text-align: left;
+  padding: 0.2rem 0.4rem 0.2rem 0;
+  font-weight: 600;
+  color: var(--text-sekundaer);
+  border-bottom: 1px solid var(--rahmen-subtil);
+}
+
+.sld-tabelle td {
+  padding: 0.2rem 0.4rem 0.2rem 0;
+  color: var(--text-primaer);
+}
+
+.sld-num {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.sld-zeit {
+  color: var(--text-sekundaer);
+  white-space: nowrap;
+}

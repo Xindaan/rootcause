@@ -1,0 +1,161 @@
+/* T-0239: AuthDialog + AuthStatus. Modal-Overlay + Header-Indikator. */
+
+.auth-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+  padding: 16px;
+}
+
+.auth-dialog {
+  background: var(--bg-karte);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.auth-dialog h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  color: var(--text-primaer);
+}
+
+.auth-dialog-intro {
+  margin: 8px 0;
+  font-size: 13px;
+  color: var(--text-gedaempft);
+  line-height: 1.5;
+}
+
+.auth-dialog-cmd {
+  background: var(--bg-app);
+  border: 1px solid var(--rahmen);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: var(--schrift-mono, monospace);
+  font-size: 11px;
+  overflow-x: auto;
+  margin: 8px 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.auth-dialog-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--rahmen);
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: var(--schrift-mono, monospace);
+  margin: 12px 0 4px;
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+}
+
+.auth-dialog-input:focus {
+  outline: 2px solid var(--farbe-info);
+  outline-offset: -1px;
+}
+
+.auth-dialog-fehler {
+  color: var(--farbe-gefahr);
+  font-size: 12px;
+  margin: 4px 0;
+}
+
+.auth-dialog-aktionen {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.auth-dialog-btn-prim {
+  background: var(--farbe-info);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.auth-dialog-btn-prim:hover {
+  filter: brightness(1.1);
+}
+
+.auth-dialog-btn-sek {
+  background: transparent;
+  color: var(--text-primaer);
+  border: 1px solid var(--rahmen);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Header-Status */
+
+.auth-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.auth-status--ok {
+  background: color-mix(in oklab, var(--farbe-erfolg, #2e8b57) 12%, transparent);
+  color: var(--farbe-erfolg, #2e8b57);
+}
+
+.auth-status--fehlt {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.auth-status--fehlt:hover {
+  filter: brightness(1.05);
+}
+
+.auth-status-link {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.auth-status-link:hover {
+  text-decoration: underline;
+}
+
+.auth-status-abmelden {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 2px;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.auth-status-abmelden:hover {
+  color: var(--farbe-gefahr);
+}

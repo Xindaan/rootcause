@@ -1,0 +1,118 @@
+/* T-0228 Stufe 1: PflegeErinnerungenBlock — kompakte Liste oben auf
+   dem Übersicht-Tab. */
+
+.pflege-erinnerungen-block {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-left: 4px solid var(--farbe-info);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}
+
+.pflege-erinnerungen-block h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--text-primaer);
+}
+
+.pflege-erinnerungen-block ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pe-eintrag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  /* T-0370: vorher var(--bg-app) -- Token existiert nicht (Tippfehler,
+     transparent gefallen). */
+  background: var(--bg-subtil);
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.pe-eintrag.pe-akut {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+
+/* T-0370: ueberfaellige Pflege-Erinnerung ist ein Wartungs-Nudge, keine
+   Gefahr -- das Gefahr-Rot konkurrierte direkt ueber dem KRITISCH-Band
+   mit echten Alarm-Signalen. Amber reicht. */
+.pe-eintrag.pe-ueberfaellig {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+  font-weight: 600;
+}
+
+.pe-text {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pe-frist {
+  font-weight: 600;
+  min-width: 80px;
+}
+
+.pe-typ {
+  background: var(--rahmen);
+  padding: 1px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  text-transform: lowercase;
+}
+
+.pe-zone {
+  font-family: var(--schrift-mono);
+  font-size: 11px;
+  color: var(--text-gedaempft);
+}
+
+.pe-intervall {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  font-family: var(--schrift-mono);
+}
+
+.pe-beschreibung {
+  color: var(--text-gedaempft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.pe-erledigen {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.pe-erledigen:hover:not(:disabled) {
+  background: color-mix(in oklab, var(--farbe-erfolg, #2e8b57) 12%, var(--bg-karte));
+  border-color: var(--farbe-erfolg, #2e8b57);
+}
+.pe-erledigen:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.pe-fehler {
+  font-size: 12px;
+  color: var(--farbe-gefahr);
+  margin-bottom: 6px;
+}

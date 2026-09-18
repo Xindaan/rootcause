@@ -1,0 +1,87 @@
+/* T-0612: Sperr-Banner oberhalb der Tabs. Warnfarbe (Amber), helles Design. */
+
+.kanal-sperr-banner {
+  margin: 0.5rem 0;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  background: var(--farbe-warnung-bg);
+  border: 1px solid var(--farbe-warnung);
+  border-left-width: 4px;
+  color: var(--text-primaer);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.ksb-titel {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  color: var(--farbe-warnung-text);
+}
+
+.ksb-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.ksb-eintrag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.ksb-knopf {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--farbe-warnung);
+  background: var(--bg-karte);
+  color: var(--farbe-warnung-text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ksb-knopf:hover:not(:disabled) {
+  background: var(--farbe-warnung-bg);
+}
+
+.ksb-knopf:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.ksb-knopf:focus-visible {
+  outline: 2px solid var(--farbe-info);
+  outline-offset: 2px;
+}
+
+.ksb-hinweis {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-gedaempft);
+}
+
+/* Gate G3-1: Hinweis zum Stand der Liste (Abruf gescheitert, Backend kann
+   nicht lesen). Deutlich, weil die Automatik dann eventuell ueberall steht. */
+.ksb-stand {
+  margin: 0.4rem 0 0;
+  font-weight: 600;
+  color: var(--farbe-warnung-text);
+}
+
+/* Backend kann die Sperren nicht lesen: die Automatik steht auf allen
+   Kanaelen (fail-closed). Gefahr-Farbe statt Amber. */
+.kanal-sperr-banner.ksb-dringend {
+  background: var(--farbe-gefahr-bg);
+  border-color: var(--farbe-gefahr);
+}
+
+.ksb-dringend .ksb-titel,
+.ksb-dringend .ksb-stand {
+  color: var(--farbe-gefahr);
+}

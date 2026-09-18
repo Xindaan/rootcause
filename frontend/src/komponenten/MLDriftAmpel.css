@@ -1,0 +1,58 @@
+/* MLDriftAmpel — kompakte MAE-Anzeige (T-0080d). */
+
+.ml-drift-ampel {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  margin-top: 0.4rem;
+  background: var(--bg-karte-sub, rgba(0, 0, 0, 0.03));
+  border-radius: 0.4rem;
+  font-size: 0.78rem;
+}
+
+.ml-drift-ampel .label {
+  color: var(--farbe-sekundaer, #666);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ml-drift-ampel .horizonte {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.ml-drift-ampel .horizont {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: help;
+}
+
+.ml-drift-ampel .horizont small {
+  font-size: 0.65rem;
+  font-weight: 500;
+  opacity: 0.65;
+  letter-spacing: 0.02em;
+}
+/* Ratio aktuell/baseline -- erklaert die Ampel-Farbe an Ort und Stelle. */
+.ml-drift-ampel .horizont .ratio {
+  font-weight: 600;
+  opacity: 0.55;
+  margin-left: 0.1rem;
+}
+
+/* Ampel-Zustaende — gleiche Token wie GiessEmpfehlungPanel.css fuer
+   visuelle Konsistenz. */
+.ml-drift-ampel .ampel-gruen       { background: var(--farbe-gesund-bg);  color: var(--farbe-gesund); }
+.ml-drift-ampel .ampel-rot         { background: var(--farbe-gefahr-bg);  color: var(--farbe-gefahr); }
+.ml-drift-ampel .ampel-backlog     { background: var(--farbe-warnung-bg); color: var(--farbe-warnung-text); }
+.ml-drift-ampel .ampel-unbekannt,
+.ml-drift-ampel .ampel-keine_daten { background: rgba(0, 0, 0, 0.05);     color: var(--farbe-sekundaer, #666); }

@@ -1,0 +1,131 @@
+/* WasserBilanz — kompakter KPI-Block in der ZonenKarte. */
+
+.wasser-bilanz {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 8px;
+}
+
+.wb-kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.wb-titel {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-gedaempft);
+}
+
+.wb-fenster {
+  display: inline-flex;
+  gap: 2px;
+  background: var(--bg-subtil);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.wb-fenster-btn {
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.wb-fenster-btn:hover {
+  color: var(--text-primaer);
+}
+
+.wb-fenster-btn.aktiv {
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.wb-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.wb-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  background: var(--bg-subtil);
+  border-radius: 6px;
+}
+
+.wb-kpi-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+  font-weight: 600;
+}
+
+.wb-kpi-wert {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primaer);
+  font-variant-numeric: tabular-nums;
+}
+
+.wb-kpi-detail {
+  font-size: 10px;
+  color: var(--text-gedaempft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wb-bilanz.positiv .wb-kpi-wert {
+  color: var(--farbe-info);
+}
+
+.wb-bilanz.negativ .wb-kpi-wert {
+  color: var(--farbe-warnung-text);
+}
+
+.wb-bilanz.neutral .wb-kpi-wert {
+  color: var(--text-primaer);
+}
+
+.wb-hinweis {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #8a4b00;
+  background: #fff3d6;
+  border: 1px solid #e3b366;
+  border-radius: 10px;
+  cursor: help;
+}
+
+/* T-0575: Herkunfts-Marker. Gedaempft und klein -- er soll die Zahlen
+   nicht ueberschreien, aber ohne Hover lesbar sein (auf dem Touchscreen
+   gibt es kein Hover, dort war der alte `title` unerreichbar). */
+.wb-herkunft {
+  font-size: 10px;
+  color: var(--text-gedaempft);
+  font-style: italic;
+  margin-left: 8px;
+  white-space: nowrap;
+}

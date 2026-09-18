@@ -1,0 +1,76 @@
+/* Design-Tokens — Zentrale Farbpalette, Typografie, Abstands- und Kartenwerte.
+   Alle Komponenten referenzieren diese Variablen statt hartcodierter Werte. */
+
+:root {
+  /* Hintergruende */
+  --bg-seite:           #f8f6f1;
+  --bg-karte:           #ffffff;
+  --bg-karte-hover:     #fdfcf9;
+  --bg-subtil:          #f1ede5;
+
+  /* Rahmen */
+  --rahmen:             #e5e0d5;
+  --rahmen-subtil:      #ede9e0;
+  --rahmen-stark:       #d9d2c1;
+
+  /* Text */
+  --text-primaer:       #2c2c2c;
+  --text-sekundaer:     #6b6560;
+  /* T-0370 (A11y): vorher #9c958d = 2.96:1 auf Weiss -- unter WCAG AA
+     (4.5:1), obwohl der Ton fuer 10px-Mono-Metazeilen genutzt wird.
+     #78716a = 4.81:1 auf Weiss / 4.45:1 auf --bg-seite, gleicher warmer
+     Grauton. */
+  --text-gedaempft:     #78716a;
+
+  /* Status */
+  --farbe-gesund:       #2d8a4e;
+  --farbe-gesund-bg:    #e8f5ec;
+  /* T-0397 (F17): dunkleres Gruen-TEXT-Token, analog --farbe-warnung-text.
+     --farbe-gesund als Text auf gruenen Tint-Flaechen nur 3.85-4.32:1 (unter
+     AA). NUR fuer Text auf getoenten Flaechen -- Flaechen/Rahmen bleiben auf
+     --farbe-gesund. #1b6e39 = ~6:1 auf Weiss, ~5.3:1 auf --farbe-gesund-bg. */
+  --farbe-gesund-text:  #1b6e39;
+  --farbe-warnung:      #c47f17;
+  --farbe-warnung-bg:   #fef3d7;
+  /* T-0397 (F15): eigenes TEXT-Token fuer Amber. --farbe-warnung (#c47f17)
+     ist Dual-Use (Text UND Flaeche/Rahmen); als Text auf getoenten Flaechen
+     nur 2.49-2.97:1 (unter AA). Dieses dunklere Token NUR fuer Text/Icon-
+     Glyphen -- Flaechen + Rahmen bleiben auf --farbe-warnung. #8a5a00 =
+     ~5.7:1 auf Weiss, ~5.2:1 auf --farbe-warnung-bg (beides >= AA 4.5). */
+  --farbe-warnung-text: #8a5a00;
+  --farbe-gefahr:       #c53030;
+  --farbe-gefahr-bg:    #fde8e8;
+  --farbe-info:         #2563a8;
+  --farbe-info-bg:      #e8f0fd;
+
+  /* Empfehlungs-Layer (UX-Review 2026-04-20) */
+  --farbe-vorschlag:    #8b6a0e;
+  --farbe-vorschlag-bg: #fbf3d6;
+  --farbe-optimum:      #2a6f8f;
+  --farbe-optimum-bg:   #e1eef3;
+
+  /* Charts */
+  --chart-feuchte:      #3b7dd8;
+  --chart-feuchte-fill: rgba(59, 125, 216, 0.08);
+  --chart-temperatur:   #d97706;
+  --chart-regen:        #4a90d9;
+  --chart-et0:          #8b6cc1;
+  --chart-ml:           #7c5cbf;
+  --chart-ml-band:      rgba(124, 92, 191, 0.10);
+  --chart-gitter:       #ede9e0;
+
+  /* Karten */
+  --karte-radius:       14px;
+  --karte-schatten:     0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --karte-schatten-hover: 0 4px 12px rgba(0,0,0,0.06);
+
+  /* Typografie */
+  --schrift:            -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --schrift-mono:       ui-monospace, SFMono-Regular, 'Roboto Mono', Menlo, Consolas, monospace;
+
+  /* Sensor-Quellen-Farben (Zonen-Karte v2/v3). Aquabloom ist KEIN
+     Sensor -- die Farbe dient nur der AquaBloom-Pill (T-0221/Q42). */
+  --quelle-gardena:     #2a6f8f;
+  --quelle-fyta:        #5c3fb0;
+  --quelle-aquabloom:   #1f7a4d;
+}

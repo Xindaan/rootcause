@@ -1,0 +1,165 @@
+/* TagEvents — Liste heutiger Ventil-Events im Ops-Tab (T-0055-B2). */
+
+.tag-events {
+  margin-top: 20px;
+  padding: 12px 14px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 10px;
+}
+
+.te-kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.te-kopf h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.te-refresh {
+  background: transparent;
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 2px 8px;
+  font-size: 14px;
+  color: var(--text-gedaempft);
+}
+
+.te-refresh:hover {
+  background: var(--bg-subtil);
+}
+
+.te-status, .te-leer, .te-fehler {
+  font-size: 13px;
+  color: var(--text-gedaempft);
+  padding: 8px 4px;
+}
+
+.te-fehler {
+  color: var(--farbe-gefahr);
+}
+
+.te-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.te-zeile {
+  border-top: 1px solid var(--rahmen-subtil);
+  padding: 8px 0;
+}
+
+.te-zeile:first-child {
+  border-top: none;
+}
+
+.te-zeile.unklassifiziert {
+  background: rgba(255, 200, 100, 0.08);
+  border-left: 3px solid var(--farbe-warnung);
+  padding-left: 8px;
+  margin-left: -8px;
+}
+
+.te-haupt {
+  display: grid;
+  grid-template-columns: 120px 1fr 100px 80px 110px 100px;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+}
+
+.te-zeit {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-gedaempft);
+}
+
+.te-zone {
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.te-aktion {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+}
+
+.te-dauer {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-sekundaer);
+}
+
+.te-quelle {
+  font-size: 11px;
+  padding: 2px 8px;
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.te-ausloeser {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.te-ausloeser.te-unbekannt {
+  background: var(--farbe-warnung);
+  color: white;
+}
+
+.te-ausloeser.te-automatik {
+  background: var(--bg-subtil);
+  color: var(--farbe-info);
+}
+
+.te-ausloeser.te-manuell {
+  background: var(--bg-subtil);
+  color: var(--text-primaer);
+}
+
+.te-aktionen {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  padding-left: 128px;  /* matcht te-zeit-Spalte */
+  align-items: center;
+  font-size: 12px;
+}
+
+.te-aktionen-hinweis {
+  color: var(--text-gedaempft);
+  margin-right: 4px;
+}
+
+.te-aktionen button {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-primaer);
+}
+
+.te-aktionen button:hover {
+  background: var(--bg-subtil);
+}
+
+.te-aktionen .te-btn-loeschen {
+  color: var(--farbe-gefahr);
+  border-color: var(--farbe-gefahr);
+}

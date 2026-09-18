@@ -1,0 +1,71 @@
+/* MLRetrainStatusKachel — T-0183 (Folge B3). */
+
+.mrk-kachel {
+  margin: 0.75rem 0;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: var(--text-primaer);
+}
+
+.mrk-zeile-eins {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.mrk-titel {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.mrk-status {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 0.1rem 0.45rem;
+  border-radius: 10px;
+}
+
+.mrk-status.aktiv {
+  background: var(--farbe-gesund-bg);
+  color: var(--farbe-gesund);
+}
+
+.mrk-status.inaktiv {
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+}
+
+.mrk-zeile-zwei {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.1rem 0;
+}
+
+.mrk-label {
+  color: var(--text-sekundaer);
+  min-width: 5.5rem;
+}
+
+.mrk-wert {
+  font-variant-numeric: tabular-nums;
+}
+
+.mrk-zeile-meta {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px dashed var(--rahmen-subtil);
+  color: var(--text-gedaempft);
+  font-size: 0.74rem;
+}
+
+.mrk-ok .mrk-wert { color: var(--farbe-gesund); }
+.mrk-warn .mrk-wert { color: var(--farbe-warnung-text); }
+.mrk-neutral .mrk-wert { color: var(--text-sekundaer); }

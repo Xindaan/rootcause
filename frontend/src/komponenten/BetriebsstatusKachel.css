@@ -1,0 +1,129 @@
+/* T-0238: BetriebsstatusKachel — Layout + Status-Farben. */
+
+.betriebsstatus-kachel {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+
+.betriebsstatus-kachel.betriebsstatus-fehler {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+  border-color: color-mix(in oklab, var(--farbe-gefahr) 30%, transparent);
+}
+
+.bs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.bs-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-primaer);
+}
+
+.bs-meta {
+  font-size: 12px;
+  color: var(--text-gedaempft);
+  font-family: var(--schrift-mono);
+}
+
+.bs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.bs-card {
+  background: var(--bg-app);
+  border: 1px solid var(--rahmen);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.bs-card h4 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bs-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bs-liste li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.bs-zeile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.bs-leer {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-gedaempft);
+}
+
+.bs-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: lowercase;
+}
+
+.bs-status-ok {
+  background: color-mix(in oklab, var(--farbe-erfolg, #2e8b57) 18%, transparent);
+  color: var(--farbe-erfolg, #2e8b57);
+}
+
+.bs-status-warn {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+
+.bs-status-fehler {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+}
+
+.bs-status-info {
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+}
+
+.bs-zeit {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  margin-left: auto;
+}
+
+.bs-details {
+  width: 100%;
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

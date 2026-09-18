@@ -1,0 +1,27 @@
+/* T-0311: Verbindungsverlust-Banner. Bewusst prominent (full-width, kraeftig),
+   weil der bisherige dezente StatusLeisten-Hinweis uebersehen wurde, waehrend
+   die grossen Sensor-Alter ("vor 17,9 h") wie Sensor-Tod aussahen. */
+.verbindungs-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0.5rem 0;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  background: color-mix(in oklab, var(--farbe-gefahr) 12%, var(--bg-karte));
+  border: 1px solid color-mix(in oklab, var(--farbe-gefahr) 45%, transparent);
+  color: var(--text-primaer);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.vb-icon {
+  color: var(--farbe-gefahr);
+  font-size: 1.1rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+.vb-text strong {
+  color: var(--farbe-gefahr);
+}

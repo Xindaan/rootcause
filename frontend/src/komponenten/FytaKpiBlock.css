@@ -1,0 +1,49 @@
+/* FytaKpiBlock (T-0196: FYTA-Pflanzen-Status unter dem Chart).
+   T-0610 FE-1: die Regeln standen bis T-0580 in ZonenKarte.css und fielen
+   mit deren Loeschung weg. Klassen sind komponenteneigen (fyta-status-*),
+   deshalb ohne weiteren Scope. Eine Zeile pro Achse (Licht, Temperatur). */
+.fyta-status {
+  margin-top: 12px;
+  padding: 8px 10px;
+  background: var(--bg-subtil, rgba(0, 0, 0, 0.03));
+  border-radius: 8px;
+  border: 1px solid var(--rahmen, rgba(0, 0, 0, 0.08));
+  font-size: 12px;
+}
+
+.fyta-status-titel {
+  font-weight: 600;
+  color: var(--text-sekundaer);
+  margin-bottom: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.fyta-status-zeile {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+  padding: 2px 0;
+}
+
+.fyta-status-label {
+  color: var(--text-sekundaer);
+}
+
+.fyta-status-wert {
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.fyta-status-opt {
+  color: var(--text-gedaempft);
+  font-size: 11px;
+}
+
+.fyta-status-bewertung {
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}

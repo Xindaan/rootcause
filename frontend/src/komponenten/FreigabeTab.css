@@ -1,0 +1,388 @@
+/* T-0236 Freigabe-/Vertrauens-Tab. Layout pro Zone: Reife-Grad +
+ * Dauer-Drift-Ampel + ausklappbarer Audit-Trail. */
+
+.freigabe-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.fg-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  box-shadow: var(--karte-schatten);
+}
+
+.fg-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primaer);
+}
+
+.fg-intro {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-sekundaer);
+  line-height: 1.45;
+}
+
+.fg-intro code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  background: var(--bg-subtil);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: var(--text-primaer);
+}
+
+.fg-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--text-gedaempft);
+}
+
+.fg-filter select {
+  font: inherit;
+  font-size: 13px;
+  padding: 5px 8px;
+  border: 1px solid var(--rahmen);
+  border-radius: 6px;
+  background: var(--bg-karte);
+  color: var(--text-primaer);
+  min-width: 160px;
+}
+
+.fg-btn {
+  border: 1px solid var(--rahmen);
+  background: var(--bg-karte);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.fg-btn:hover {
+  color: var(--text-primaer);
+}
+
+.fg-btn.aktiv {
+  background: var(--farbe-akzent, #3c6e71);
+  color: #fff;
+  border-color: var(--farbe-akzent, #3c6e71);
+}
+
+.fg-fehler {
+  padding: 10px 14px;
+  background: #fdecea;
+  color: #8a1f12;
+  border: 1px solid #f5c6c1;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fg-leer {
+  padding: 12px;
+  text-align: center;
+  font-style: italic;
+  color: var(--text-gedaempft);
+  font-size: 13px;
+}
+
+/* Gesamt-Stats */
+.fg-global-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  box-shadow: var(--karte-schatten);
+}
+
+.fg-global-stats h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primaer);
+}
+
+.fg-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.fg-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  background: var(--bg-subtil);
+  border-radius: 8px;
+}
+
+.fg-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+}
+
+.fg-stat-wert {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primaer);
+  font-variant-numeric: tabular-nums;
+}
+
+.fg-typ-verteilung {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fg-typ {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  background: var(--bg-subtil);
+  color: var(--text-sekundaer);
+}
+
+.fg-typ.fg-typ-giessen,
+.fg-typ-giessen {
+  background: #e0f4e8;
+  color: #14613a;
+}
+
+.fg-typ.fg-typ-nicht_giessen,
+.fg-typ-nicht_giessen {
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+}
+
+.fg-typ.fg-typ-warten,
+.fg-typ-warten {
+  background: #fff7e0;
+  color: #7a5a00;
+}
+
+/* Pro Zone */
+.fg-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  box-shadow: var(--karte-schatten);
+}
+
+.fg-zone-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.fg-zone-header h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primaer);
+}
+
+.fg-reife {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  cursor: help;
+}
+
+.fg-reife-reif {
+  background: #e0f4e8;
+  color: #14613a;
+}
+
+.fg-reife-mittel {
+  background: #fff7e0;
+  color: #7a5a00;
+}
+
+.fg-reife-rot {
+  background: #fdecea;
+  color: #8a1f12;
+}
+
+.fg-reife-noch {
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+}
+
+.fg-ampel {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  cursor: help;
+}
+
+.fg-ampel-gruen {
+  background: #e0f4e8;
+  color: #14613a;
+}
+
+.fg-ampel-gelb {
+  background: #fff7e0;
+  color: #7a5a00;
+}
+
+.fg-ampel-rot {
+  background: #fdecea;
+  color: #8a1f12;
+}
+
+.fg-ampel-info {
+  background: #e3eef7;
+  color: #1f4a7a;
+}
+
+.fg-ampel-grau {
+  background: var(--bg-subtil);
+  color: var(--text-gedaempft);
+}
+
+.fg-reife-begr {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-sekundaer);
+  line-height: 1.4;
+}
+
+.fg-drift-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  padding: 8px 12px;
+  background: var(--bg-subtil);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--text-sekundaer);
+}
+
+.fg-drift-block strong {
+  color: var(--text-primaer);
+  font-variant-numeric: tabular-nums;
+}
+
+.fg-drift-n {
+  color: var(--text-gedaempft);
+  font-size: 11px;
+}
+
+.fg-audit-details {
+  margin-top: 4px;
+}
+
+.fg-audit-details > summary {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  padding: 6px 4px;
+  user-select: none;
+}
+
+.fg-audit-details > summary:hover {
+  color: var(--text-primaer);
+}
+
+.fg-audit-details[open] > summary {
+  color: var(--text-primaer);
+  margin-bottom: 6px;
+}
+
+.fg-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.fg-tabelle thead {
+  background: var(--bg-subtil);
+}
+
+.fg-tabelle th {
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-gedaempft);
+  border-bottom: 1px solid var(--rahmen);
+}
+
+.fg-tabelle td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--rahmen-subtil);
+  vertical-align: top;
+  font-variant-numeric: tabular-nums;
+}
+
+.fg-tabelle tbody tr:hover {
+  background: var(--bg-subtil);
+}
+
+.fg-zell-dat {
+  white-space: nowrap;
+  color: var(--text-sekundaer);
+}
+
+.fg-zell-q {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+}
+
+.fg-zell-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.fg-abw-hoch {
+  color: #8a1f12;
+  font-weight: 600;
+}

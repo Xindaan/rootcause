@@ -1,0 +1,49 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node -e \"console.warn('Hinweis (T-0610 AT-10): vite build leert ../backend/static und schreibt es neu. Der Dienst auf Port 8090 liefert daraus aus; im Live-Checkout nur bewusst bauen.')\"",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.node.json --noEmit",
+    "test": "npm run -s test:overview && npm run -s test:segmente && npm run -s test:bilanz && npm run -s test:giessfenster && npm run -s test:defekt && npm run -s test:notfall && npm run -s test:events && npm run -s test:presoak && npm run -s test:historie && npm run -s test:ml && npm run -s test:drawer && npm run -s test:kartendaten",
+    "test:overview": "node --test tests/uebersicht-neu.test.cjs && node tests/pruefe_snapshot_stand.mjs",
+    "test:segmente": "node tests/pruefe_chart_segmente.mjs",
+    "test:bilanz": "node tests/pruefe_bilanz_frische.mjs",
+    "test:giessfenster": "node tests/pruefe_giessfenster_hinweis.mjs",
+    "test:defekt": "node tests/pruefe_sensor_defekt.mjs && node tests/pruefe_kritisch_einstufung.mjs",
+    "test:notfall": "node tests/pruefe_notfall_sichtbarkeit.mjs && node tests/pruefe_kanal_sperre.mjs",
+    "test:events": "node tests/pruefe_tag_events_aktion.mjs",
+    "test:presoak": "node tests/pruefe_presoak_anzeige.mjs",
+    "test:historie": "node tests/pruefe_entscheidungs_filter.mjs",
+    "test:kartendaten": "node tests/pruefe_karten_snapshot_daten.mjs",
+    "test:drawer": "node tests/pruefe_drawer_fokus.mjs",
+    "test:ml": "node tests/pruefe_ml_badge.mjs && node tests/pruefe_ml_prognose_kopf.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "recharts": "^3.8.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^24.12.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.58.0",
+    "vite": "^8.2.4"
+  },
+  "overrides": {
+    "minimatch@>=7 <11.0.1": "^11.0.1"
+  }
+}

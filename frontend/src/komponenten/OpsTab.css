@@ -1,0 +1,433 @@
+.ops-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ops-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ops-intro h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.ops-intro p {
+  color: var(--text-sekundaer);
+  max-width: 760px;
+}
+
+.ops-filter,
+.ops-timeline,
+.ops-kpi-karte,
+.ops-ladezustand,
+.ops-fehler {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: var(--karte-radius);
+  box-shadow: var(--karte-schatten);
+}
+
+.ops-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 18px;
+}
+
+.ops-filter-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+}
+
+.ops-filter-block label,
+.ops-filter-block span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ops-filter select {
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--rahmen);
+  border-radius: 10px;
+  background: white;
+  color: var(--text-primaer);
+}
+
+.ops-filter-block span.ops-filter-meta {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-gedaempft);
+  text-transform: none;
+  letter-spacing: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.ops-filter-severity {
+  flex: 1;
+}
+
+.ops-severity-liste {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ops-severity-chip {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--rahmen);
+  border-radius: 999px;
+  background: var(--bg-subtil);
+  color: var(--text-sekundaer);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ops-severity-chip.aktiv {
+  background: var(--farbe-info-bg);
+  border-color: var(--farbe-info);
+  color: var(--farbe-info);
+}
+
+.ops-kpi-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ops-kpi-kopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ops-kpi-kopf h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primaer);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ops-kpi-hinweis {
+  font-size: 12px;
+  color: var(--text-gedaempft);
+  font-variant-numeric: tabular-nums;
+}
+
+.ops-kpi-zeile {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+}
+
+.ops-kpi-karte {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+}
+
+.ops-kpi-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-gedaempft);
+}
+
+.ops-kpi-wert {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primaer);
+}
+
+.ops-kpi-karte.info .ops-kpi-wert {
+  color: var(--farbe-info);
+}
+
+.ops-kpi-karte.gesund .ops-kpi-wert {
+  color: var(--farbe-gesund);
+}
+
+.ops-kpi-karte.warnung .ops-kpi-wert {
+  color: var(--farbe-warnung-text);
+}
+
+.ops-kpi-karte.gefahr .ops-kpi-wert {
+  color: var(--farbe-gefahr);
+}
+
+.ops-panel-kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 18px 0;
+}
+
+.ops-panel-kopf h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ops-hinweis {
+  font-size: 13px;
+  color: var(--text-gedaempft);
+}
+
+.ops-timeline {
+  overflow: hidden;
+}
+
+.ops-eintrag-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+}
+
+.ops-eintrag {
+  border: 1px solid var(--rahmen-subtil);
+  border-left-width: 4px;
+  border-radius: 12px;
+  background: var(--bg-karte-hover);
+  padding: 14px 16px;
+}
+
+.ops-eintrag.ops-kritisch {
+  border-left-color: var(--farbe-gefahr);
+}
+
+.ops-eintrag.ops-aktion {
+  border-left-color: var(--farbe-info);
+}
+
+.ops-eintrag.ops-wetter {
+  border-left-color: var(--farbe-warnung);
+}
+
+.ops-eintrag.ops-routine {
+  border-left-color: var(--text-gedaempft);
+}
+
+.ops-eintrag-kopf {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.ops-eintrag-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ops-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.ops-badge.ops-kritisch {
+  background: var(--farbe-gefahr-bg);
+  color: var(--farbe-gefahr);
+}
+
+.ops-badge.ops-aktion {
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+}
+
+.ops-badge.ops-wetter {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+}
+
+.ops-badge.ops-routine {
+  background: var(--bg-subtil);
+  color: var(--text-sekundaer);
+}
+
+.ops-zeit {
+  font-size: 13px;
+  color: var(--text-gedaempft);
+  font-variant-numeric: tabular-nums;
+}
+
+.ops-expand-btn {
+  border: none;
+  background: transparent;
+  color: var(--farbe-info);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ops-eintrag-aktionen {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.ops-korrigiert {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--farbe-warnung-text);
+  border: 1px dashed var(--farbe-warnung);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.ops-eintrag-edit {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid var(--rahmen-subtil);
+  border-radius: 10px;
+  background: var(--bg-subtil);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.ops-eintrag-edit select {
+  flex: 1;
+  min-width: 140px;
+}
+
+.ops-eintrag-edit label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-gedaempft);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ops-eintrag-edit select {
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--rahmen);
+  border-radius: 8px;
+  background: white;
+}
+
+.ops-edit-speichern {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--farbe-info);
+  border-radius: 8px;
+  background: var(--farbe-info);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ops-edit-speichern:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ops-edit-abbrechen {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--rahmen);
+  border-radius: 8px;
+  background: white;
+  color: var(--text-sekundaer);
+  cursor: pointer;
+}
+
+.ops-edit-hinweis {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-gedaempft);
+}
+
+.ops-edit-fehler {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--farbe-gefahr);
+  font-size: 13px;
+}
+
+.ops-eintrag-inhalt {
+  margin-top: 10px;
+}
+
+.ops-eintrag-inhalt h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primaer);
+}
+
+.ops-eintrag-kontext {
+  margin-top: 4px;
+  color: var(--text-sekundaer);
+}
+
+.ops-eintrag-details {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rahmen-subtil);
+  color: var(--text-sekundaer);
+}
+
+.ops-eintrag-details p + p {
+  margin-top: 8px;
+}
+
+.ops-meta-liste {
+  margin-top: 8px;
+  padding-left: 18px;
+  color: var(--text-sekundaer);
+}
+
+.ops-meta-liste li + li {
+  margin-top: 4px;
+}
+
+.ops-ladezustand,
+.ops-fehler,
+.ops-leerzustand {
+  padding: 18px;
+  color: var(--text-sekundaer);
+}
+
+.ops-fehler {
+  color: var(--farbe-gefahr);
+  border-color: var(--farbe-gefahr-bg);
+  background: white;
+}
+
+@media (max-width: 768px) {
+  .ops-filter {
+    flex-direction: column;
+  }
+
+  .ops-panel-kopf,
+  .ops-eintrag-kopf {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Eindeutiger Service-Name -->
+    <key>Label</key>
+    <string>de.xindaan.pflanzen-dashboard</string>
+
+    <!-- Start-Script (baut Frontend bei Bedarf, startet Backend) -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/ABSOLUTER/PFAD/ZU/Gardena/start.sh</string>
+        <string>--service</string>
+    </array>
+
+    <!-- Arbeitsverzeichnis -->
+    <key>WorkingDirectory</key>
+    <string>/ABSOLUTER/PFAD/ZU/Gardena</string>
+
+    <!-- Umgebungsvariablen aus .env werden von python-dotenv geladen -->
+    <!-- PATH muss gesetzt sein damit Subprozesse funktionieren -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/ABSOLUTER/PFAD/ZU/Gardena/.venv/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>PYTHONPATH</key>
+        <string>/ABSOLUTER/PFAD/ZU/Gardena/backend/src</string>
+    </dict>
+
+    <!-- Automatisch starten bei Login -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Bei Absturz automatisch neustarten (max. alle 30s) -->
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+
+    <!-- Log-Dateien -->
+    <key>StandardOutPath</key>
+    <string>/ABSOLUTER/PFAD/ZU/Gardena/daten/logs/service-stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/ABSOLUTER/PFAD/ZU/Gardena/daten/logs/service-stderr.log</string>
+
+    <!-- Soft-Limit: 5 Minuten zum sauberen Beenden -->
+    <key>ExitTimeOut</key>
+    <integer>300</integer>
+</dict>
+</plist>

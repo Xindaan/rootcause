@@ -1,0 +1,100 @@
+/* WetterKarte */
+
+/* T-0610 FE-1: Kartenrahmen und Detailzeile standen bis T-0580 global in
+   ZonenKarte.css (.karte, .karte-details, .detail, .label, .wert,
+   .chart-container) und fielen mit deren Loeschung weg. Jetzt auf
+   .wetter-karte gescopt, damit sie keine anderen Komponenten treffen. */
+.wetter-karte {
+  background: var(--bg-karte);
+  border: 1px solid var(--rahmen);
+  border-top: 3px solid var(--farbe-info);
+  border-radius: var(--karte-radius);
+  padding: 20px 24px;
+  box-shadow: var(--karte-schatten);
+  transition: box-shadow 0.2s ease;
+}
+
+.wetter-karte:hover {
+  box-shadow: var(--karte-schatten-hover);
+}
+
+.wetter-karte .karte-details {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.wetter-karte .detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wetter-karte .label {
+  font-size: 11px;
+  color: var(--text-gedaempft);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.wetter-karte .wert {
+  font-size: 15px;
+  color: var(--text-sekundaer);
+  font-variant-numeric: tabular-nums;
+}
+
+.wetter-karte .chart-container {
+  margin-top: 8px;
+}
+
+.wetter-karte h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primaer);
+  margin: 0 0 14px;
+}
+
+/* T-0241: Banner-Slot fuer aktive Frost/Hitze/Starkregen-Warnungen.
+   Sitzt direkt unter der Ueberschrift, vor den karte-details. */
+.wetter-ereignisse {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.wetter-ereignis {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  border-left: 4px solid;
+}
+
+.wetter-ereignis--frost {
+  background: var(--farbe-info-bg);
+  color: var(--farbe-info);
+  border-left-color: var(--farbe-info);
+}
+
+.wetter-ereignis--hitze,
+.wetter-ereignis--starkregen {
+  background: var(--farbe-warnung-bg);
+  color: var(--farbe-warnung-text);
+  border-left-color: var(--farbe-warnung);
+}
+
+.wetter-ereignis-icon {
+  font-size: 16px;
+}
+
+.wetter-ereignis-label {
+  font-weight: 600;
+}
+
+.wetter-ereignis-details {
+  opacity: 0.85;
+}

@@ -1,0 +1,56 @@
+[project]
+name = "bewaesserung"
+version = "0.4.1"
+description = "Automatische Gartenbewaesserung via Gardena Smart System API"
+requires-python = ">=3.11"
+dependencies = [
+    "py-smart-gardena>=0.7",
+    "websockets>=13,<14",
+    "pydantic>=2.0",
+    "fastapi>=0.100",
+    "uvicorn[standard]",
+    "httpx",
+    "pyyaml",
+    "aiosqlite",
+    "structlog",
+    "python-dotenv",
+    # T-0616 (W6-Rest): direkt importiert, bisher nur transitiv vorhanden.
+    # authlib: gardena_client (Laufzeit-Patch, OAuthError/InvalidTokenError);
+    # numpy/scipy: ml/wirkung_fit (von main.py beim Start geladen) und
+    # skalen_mapping_fit_job; starlette: api_server (TrustedHostMiddleware,
+    # sonst nur ueber fastapi). Untergrenze = Major/Minor aus requirements.lock.
+    # Sicherheits-Update 22.10.2026: authlib/starlette auf die Fix-Versionen gehoben.
+    "authlib>=1.6.12",
+    "numpy>=2.4",
+    "scipy>=1.17",
+    "starlette>=1.3.1",
+]
+
+[project.optional-dependencies]
+ml = [
+    "pandas>=2.0",
+    "scikit-learn>=1.4",
+    "lightgbm>=4.0",
+]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-asyncio",
+    "ruff",
+]
+
+[project.scripts]
+bewaesserung = "bewaesserung.main:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

@@ -1,0 +1,47 @@
+/* T-0108: globales ML-Job-Fehler-Banner ueber allen Tabs. */
+
+.mfb-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--farbe-gefahr-bg);
+  border: 1px solid var(--farbe-gefahr);
+  border-left-width: 4px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.mfb-icon {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.mfb-inhalt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mfb-liste {
+  margin: 0.1rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.mfb-liste li {
+  margin: 0.1rem 0;
+}
+
+.mfb-job {
+  font-weight: 600;
+}
+
+.mfb-zeit {
+  color: var(--text-sekundaer);
+}
+
+.mfb-hinweis {
+  color: var(--text-sekundaer);
+  font-size: 0.75rem;
+}
